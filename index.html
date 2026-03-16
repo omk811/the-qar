@@ -165,7 +165,10 @@ textarea.form-control{resize:vertical;min-height:110px;line-height:1.6}
     <div class="nav-logo">م</div>
     <div class="nav-title">مدرسة ذي قار للتعليم الأساسي<small>بوابة التواصل المدرسي (٥–٩)</small></div>
   </div>
-  <button class="nav-btn" onclick="refreshPortal()">🔄 تحديث</button>
+  <div style="display:flex;gap:8px;align-items:center">
+    <button class="nav-btn" onclick="refreshPortal()">🔄 تحديث</button>
+    <a href="dashboard.html" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:7px 14px;border-radius:20px;font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">⚙️ لوحة الإدارة</a>
+  </div>
 </nav>
 
 <div class="page-inner">
@@ -306,7 +309,7 @@ textarea.form-control{resize:vertical;min-height:110px;line-height:1.6}
 <script>
 /* ══ CONFIG ══ */
 var LS_CONTENT    = 'dhiqar_content';    /* مشترك مع dashboard */
-var SCRIPT_URL    = localStorage.getItem('dhiqar_scriptUrl') || 'https://script.google.com/macros/s/AKfycbxjpmuuHKXk5ys5ditcyqhBegZ33z_Yee-Z7juDNAaV4JsxLbXb3GyPGIG6wYNW74k/exec';
+var SCRIPT_URL    = localStorage.getItem('dhiqar_scriptUrl') || 'https://script.google.com/macros/s/AKfycbzQlUnowPx43A1edGGHA1T8piquK1GdGjLIQ8Y-Ekmdb1QjY_r3JWewEPGD6_HMQmiA/exec';
 
 /* ══ DEFAULT DATA ══ */
 var defAnn = [
@@ -342,7 +345,7 @@ function refreshPortal() {
   loadContent();
   renderAll();
   showToast('🔄 تم تحديث المحتوى');
-  if (SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbxjpmuuHKXk5ys5ditcyqhBegZ33z_Yee-Z7juDNAaV4JsxLbXb3GyPGIG6wYNW74k/exec') {
+  if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
     fetch(SCRIPT_URL + '?action=getContent')
       .then(function(r){ return r.json(); })
       .then(function(d){
