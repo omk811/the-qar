@@ -871,6 +871,109 @@
     .btn-logout:hover { background: var(--teal); color: #fff; }
 
     .main.has-bar { margin-top: 36px; }
+
+    /* ════ CONTENT CARDS (ann/act) ════ */
+    .content-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .content-card-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .content-card-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+
+    .content-card-info { flex: 1; min-width: 0; }
+    .content-card-title { font-size: 14px; font-weight: 700; }
+    .content-card-meta  { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+    .content-card-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+    .content-card-body { padding: 1rem 1.2rem; }
+    .content-card-body p { font-size: 13px; color: var(--text2); line-height: 1.7; margin-bottom: 10px; }
+
+    .content-imgs-row {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;
+    }
+
+    .content-img-thumb {
+      position: relative; width: 72px; height: 72px;
+      border-radius: 8px; overflow: hidden;
+      border: 1px solid var(--border); cursor: zoom-in;
+    }
+
+    .content-img-thumb img { width:100%; height:100%; object-fit:cover; transition:transform .2s; }
+    .content-img-thumb:hover img { transform: scale(1.06); }
+
+    .content-img-del {
+      position: absolute; top: 3px; left: 3px;
+      width: 20px; height: 20px;
+      background: rgba(226,75,74,.88); border: none; border-radius: 50%;
+      color:#fff; font-size:10px; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; transition:opacity .15s;
+    }
+
+    .content-img-thumb:hover .content-img-del { opacity:1; }
+
+    .no-content {
+      text-align:center; padding:3rem 1rem;
+      color:var(--text3); font-size:14px;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+    }
+
+    .no-content .nc-icon { font-size:36px; margin-bottom:10px; }
+
+    /* ════ ANN/ACT MODAL ════ */
+    .content-modal { max-width: 560px; }
+
+    .form-group-modal { margin-bottom: 1rem; }
+    .form-label-modal {
+      display:block; font-size:13px; font-weight:700;
+      color:var(--text2); margin-bottom:6px;
+    }
+
+    .form-input-modal {
+      width:100%; padding:10px 12px;
+      border:1px solid var(--border); border-radius:9px;
+      font-family:'Cairo',sans-serif; font-size:14px;
+      color:var(--text); background:var(--card); outline:none;
+      transition:border-color .2s;
+    }
+
+    .form-input-modal:focus { border-color:var(--teal-mid); }
+    textarea.form-input-modal { resize:vertical; min-height:90px; line-height:1.6; }
+    select.form-input-modal {
+      appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23888' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:left 12px center; padding-left:28px;
+    }
+
+    .modal-upload-zone {
+      border: 2px dashed var(--border); border-radius:9px;
+      padding:1.2rem; text-align:center; cursor:pointer;
+      transition:all .2s; background:var(--bg); margin-top:6px;
+    }
+
+    .modal-upload-zone:hover { border-color:var(--teal-mid); background:var(--teal-light); }
+    .modal-upload-zone input { display:none; }
+    .modal-upload-zone p { font-size:13px; color:var(--text2); margin-top:6px; }
+
+    .modal-imgs-preview {
+      display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;
+    }
   </style>
 </head>
 <body>
@@ -940,11 +1043,14 @@
     </div>
     <div class="sidebar-section">
       <span class="sidebar-label">المحتوى</span>
+      <button class="sidebar-item" onclick="goSection('announcements', this)">
+        <span class="si-icon">📢</span> الإعلانات والمستجدات
+      </button>
+      <button class="sidebar-item" onclick="goSection('activities', this)">
+        <span class="si-icon">🎉</span> الأنشطة والفعاليات
+      </button>
       <button class="sidebar-item" onclick="goSection('images', this)">
         <span class="si-icon">🖼️</span> مكتبة الصور
-      </button>
-      <button class="sidebar-item" onclick="goSection('announcements', this)">
-        <span class="si-icon">📢</span> الإعلانات
       </button>
     </div>
     <hr class="sidebar-divider">
@@ -1027,10 +1133,30 @@
       </div>
     </div>
 
+    <!-- ══ SECTION: ANNOUNCEMENTS ══ -->
+    <div class="section" id="sec-announcements">
+      <div class="page-hdr">
+        <div><h2>الإعلانات والمستجدات</h2><p>إضافة وتعديل إعلانات أولياء الأمور</p></div>
+        <button class="btn btn-teal" onclick="openAnnModal(-1)">＋ إعلان جديد</button>
+      </div>
+
+      <div id="annList"></div>
+    </div>
+
+    <!-- ══ SECTION: ACTIVITIES ══ -->
+    <div class="section" id="sec-activities">
+      <div class="page-hdr">
+        <div><h2>الأنشطة والفعاليات القادمة</h2><p>إضافة وتعديل الفعاليات المدرسية</p></div>
+        <button class="btn btn-teal" onclick="openActModal(-1)">＋ فعالية جديدة</button>
+      </div>
+
+      <div id="actList"></div>
+    </div>
+
     <!-- ══ SECTION: IMAGES ══ -->
     <div class="section" id="sec-images">
       <div class="page-hdr">
-        <div><h2>مكتبة الصور</h2><p>رفع الصور وإرفاقها بالإعلانات</p></div>
+        <div><h2>مكتبة الصور</h2><p>رفع الصور وإرفاقها بالإعلانات والفعاليات والرسائل</p></div>
         <button class="btn btn-danger-soft" onclick="clearAllImgs()">🗑️ حذف الكل</button>
       </div>
 
@@ -1057,24 +1183,21 @@
         </div>
 
         <div class="attach-panel">
-          <h4>📌 إرفاق الصور المحددة بإعلان</h4>
+          <h4>📌 إرفاق الصور المحددة بـ</h4>
           <div class="attach-row">
-            <select class="form-control" id="annSelectForImg" style="flex:1;max-width:340px">
-              <option value="">-- اختر الإعلان --</option>
+            <select class="form-control" id="attachTarget" style="min-width:160px">
+              <option value="ann">إعلان</option>
+              <option value="act">فعالية</option>
+              <option value="msg">رسالة</option>
+            </select>
+            <select class="form-control" id="attachItemSelect" style="flex:1;max-width:300px">
+              <option value="">-- اختر العنصر --</option>
             </select>
             <button class="btn btn-teal" onclick="attachSelectedImgs()">إرفاق ←</button>
           </div>
           <div id="attachedPreview" class="attached-imgs"></div>
         </div>
       </div>
-    </div>
-
-    <!-- ══ SECTION: ANNOUNCEMENTS ══ -->
-    <div class="section" id="sec-announcements">
-      <div class="page-hdr">
-        <div><h2>إدارة الإعلانات</h2><p>عرض وتعديل الصور المرفقة بكل إعلان</p></div>
-      </div>
-      <div id="annManageList"></div>
     </div>
 
     <!-- ══ SECTION: SETTINGS ══ -->
@@ -1148,6 +1271,103 @@
   </div>
 </div>
 
+<!-- ════ ANN MODAL ════ -->
+<div class="modal-overlay" id="annModal" onclick="annOverlayClose(event)">
+  <div class="modal content-modal">
+    <div class="modal-header">
+      <div class="modal-title" id="annModalTitle">إعلان جديد</div>
+      <button class="modal-close" onclick="closeAnnModal()">✕</button>
+    </div>
+    <div class="form-group-modal">
+      <label class="form-label-modal">نوع الإعلان</label>
+      <select class="form-input-modal" id="annBadge">
+        <option value="badge-new">جديد</option>
+        <option value="badge-event">فعالية</option>
+        <option value="badge-info">تنبيه</option>
+      </select>
+    </div>
+    <div class="form-group-modal">
+      <label class="form-label-modal">عنوان الإعلان <span style="color:var(--danger)">*</span></label>
+      <input type="text" class="form-input-modal" id="annTitle" placeholder="عنوان الإعلان">
+    </div>
+    <div class="form-group-modal">
+      <label class="form-label-modal">التاريخ</label>
+      <input type="text" class="form-input-modal" id="annDate" placeholder="مثال: ١٦ مارس">
+    </div>
+    <div class="form-group-modal">
+      <label class="form-label-modal">نص الإعلان <span style="color:var(--danger)">*</span></label>
+      <textarea class="form-input-modal" id="annBody" placeholder="اكتب تفاصيل الإعلان هنا..."></textarea>
+    </div>
+    <div class="form-group-modal">
+      <label class="form-label-modal">رابط خارجي (اختياري)</label>
+      <input type="url" class="form-input-modal" id="annLink" placeholder="https://...">
+    </div>
+    <div class="form-group-modal">
+      <label class="form-label-modal">📷 صور الإعلان</label>
+      <div class="modal-upload-zone" onclick="document.getElementById('annImgInput').click()">
+        <input type="file" id="annImgInput" accept="image/*" multiple onchange="handleModalImgs(this.files,'ann')">
+        <div style="font-size:24px">🖼️</div>
+        <p>اضغط لإضافة صور أو اسحب هنا</p>
+      </div>
+      <div class="modal-imgs-preview" id="annImgPreview"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal primary" onclick="saveAnn()">💾 حفظ الإعلان</button>
+      <button class="btn-modal secondary" onclick="closeAnnModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ ACT MODAL ════ -->
+<div class="modal-overlay" id="actModal" onclick="actOverlayClose(event)">
+  <div class="modal content-modal">
+    <div class="modal-header">
+      <div class="modal-title" id="actModalTitle">فعالية جديدة</div>
+      <button class="modal-close" onclick="closeActModal()">✕</button>
+    </div>
+    <div class="form-group-modal">
+      <label class="form-label-modal">رمز الفعالية (إيموجي)</label>
+      <input type="text" class="form-input-modal" id="actIcon" placeholder="🏆" maxlength="4" style="font-size:22px;text-align:center;letter-spacing:4px">
+    </div>
+    <div class="form-group-modal">
+      <label class="form-label-modal">اسم الفعالية <span style="color:var(--danger)">*</span></label>
+      <input type="text" class="form-input-modal" id="actName" placeholder="اسم الفعالية أو النشاط">
+    </div>
+    <div class="form-group-modal">
+      <label class="form-label-modal">التاريخ <span style="color:var(--danger)">*</span></label>
+      <input type="text" class="form-input-modal" id="actDate" placeholder="مثال: ٢٠ مارس ٢٠٢٦">
+    </div>
+    <div class="form-group-modal">
+      <label class="form-label-modal">الوصف (اختياري)</label>
+      <textarea class="form-input-modal" id="actDesc" placeholder="تفاصيل إضافية عن الفعالية..." style="min-height:70px"></textarea>
+    </div>
+    <div class="form-group-modal">
+      <label class="form-label-modal">لون البطاقة</label>
+      <select class="form-input-modal" id="actColor">
+        <option value="var(--amber-light)">🟡 ذهبي</option>
+        <option value="var(--coral-light)">🟠 مرجاني</option>
+        <option value="var(--green-light)">🟢 أخضر</option>
+        <option value="var(--teal-light)">🔵 أزرق مخضر</option>
+        <option value="var(--blue-light)">💙 أزرق</option>
+        <option value="var(--purple-light)">🟣 بنفسجي</option>
+      </select>
+    </div>
+    <div class="form-group-modal">
+      <label class="form-label-modal">📷 صور الفعالية</label>
+      <div class="modal-upload-zone" onclick="document.getElementById('actImgInput').click()">
+        <input type="file" id="actImgInput" accept="image/*" multiple onchange="handleModalImgs(this.files,'act')">
+        <div style="font-size:24px">🖼️</div>
+        <p>اضغط لإضافة صور أو اسحب هنا</p>
+      </div>
+      <div class="modal-imgs-preview" id="actImgPreview"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal primary" onclick="saveAct()">💾 حفظ الفعالية</button>
+      <button class="btn-modal secondary" onclick="closeActModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
 <!-- ════ LIGHTBOX ════ -->
 <div class="lightbox" id="lightbox" onclick="lbBgClick(event)">
   <button class="lb-close" onclick="closeLightbox()">✕</button>
@@ -1180,7 +1400,7 @@
 /* ══════════════════════════════════════════
    CONFIG
 ══════════════════════════════════════════ */
-var SCRIPT_URL = localStorage.getItem('scriptUrl') || 'https://script.google.com/macros/s/AKfycbwxhUx4d7qA-tybDngD-9JfY9NgkOQ_nLpZom3YhC5qDLvwvawSI54RRFOqyx2H3EgH/exec';
+var SCRIPT_URL = localStorage.getItem('scriptUrl') || 'https://script.google.com/macros/s/AKfycbxjpmuuHKXk5ys5ditcyqhBegZ33z_Yee-Z7juDNAaV4JsxLbXb3GyPGIG6wYNW74k/exec';
 
 /* ══════════════════════════════════════════
    DATA
@@ -1194,9 +1414,16 @@ var DEMO_MESSAGES = [
 ];
 
 var ANNOUNCEMENTS = [
-  { badge:'badge-new',   label:'جديد',   title:'اجتماع أولياء الأمور — الثلاثاء القادم', date:'١٦ مارس' },
-  { badge:'badge-event', label:'فعالية', title:'معرض مشاريع التخطيط والتصميم',            date:'١٥ مارس' },
-  { badge:'badge-info',  label:'تنبيه',  title:'جدول الاختبارات الفصلية — الفصل الثاني', date:'١٢ مارس' }
+  { badge:'badge-new',   label:'جديد',   title:'اجتماع أولياء الأمور — الثلاثاء القادم', date:'١٦ مارس', body:'يسعد إدارة المدرسة دعوة أولياء الأمور لحضور الاجتماع الدوري يوم الثلاثاء ١٩ مارس ٢٠٢٦ الساعة ٩ صباحاً في قاعة الاجتماعات.', link:'', linkLabel:'' },
+  { badge:'badge-event', label:'فعالية', title:'معرض مشاريع التخطيط والتصميم',            date:'١٥ مارس', body:'تقيم مدرسة ذي قار معرضاً لمشاريع طالبات مادة التخطيط والتصميم يوم الأربعاء ٢٠ مارس. الجميع مدعو للحضور.', link:'', linkLabel:'' },
+  { badge:'badge-info',  label:'تنبيه',  title:'جدول الاختبارات الفصلية — الفصل الثاني', date:'١٢ مارس', body:'يُذكَّر أولياء الأمور بأن اختبارات الفصل الثاني تبدأ الأسبوع الأول من أبريل ٢٠٢٦.', link:'', linkLabel:'' }
+];
+
+var ACTIVITIES = [
+  { icon:'🏆', name:'مسابقة القرآن الكريم',      date:'٢٠ مارس ٢٠٢٦', desc:'', bg:'var(--amber-light)' },
+  { icon:'🎨', name:'معرض الفنون المدرسية',       date:'٢٥ مارس ٢٠٢٦', desc:'', bg:'var(--coral-light)' },
+  { icon:'⚽', name:'البطولة الرياضية الداخلية',  date:'١ أبريل ٢٠٢٦',  desc:'', bg:'var(--green-light)' },
+  { icon:'📚', name:'أسبوع القراءة والثقافة',     date:'٧ أبريل ٢٠٢٦',  desc:'', bg:'var(--teal-light)'  }
 ];
 
 var messages        = JSON.parse(JSON.stringify(DEMO_MESSAGES));
@@ -1216,7 +1443,9 @@ function goSection(id, btn) {
   btn.classList.add('active');
   if (id === 'overview')      buildOverview();
   if (id === 'messages')      { buildFilters(); filterMessages(); }
-  if (id === 'announcements') buildAnnManage();
+  if (id === 'announcements') buildAnnList();
+  if (id === 'activities')    buildActList();
+  if (id === 'images')        { renderAdminGallery(); updateAttachSelects(); }
   if (id === 'settings') {
     var inp = document.getElementById('scriptUrlInput');
     if (inp) inp.value = SCRIPT_URL !== 'YOUR_SCRIPT_URL' ? SCRIPT_URL : '';
@@ -1468,84 +1697,6 @@ function clearAllImgs() {
   }
 }
 
-function updateAnnSelect() {
-  var sel = document.getElementById('annSelectForImg');
-  if (!sel) return;
-  var cur = sel.value;
-  sel.innerHTML = '<option value="">-- اختر الإعلان --</option>';
-  ANNOUNCEMENTS.forEach(function(a, i) {
-    sel.innerHTML += '<option value="' + i + '">' + a.title + '</option>';
-  });
-  if (cur) sel.value = cur;
-}
-
-function attachSelectedImgs() {
-  var annIdx = document.getElementById('annSelectForImg').value;
-  if (annIdx === '') { showToast('⚠️ اختر إعلاناً أولاً'); return; }
-  var selected = uploadedImages.filter(function(img) { return img.selected; });
-  if (!selected.length) { showToast('⚠️ حدد صورة أو أكثر'); return; }
-  if (!annAttachedMap[annIdx]) annAttachedMap[annIdx] = [];
-  selected.forEach(function(img) {
-    if (annAttachedMap[annIdx].indexOf(img.dataUrl) === -1)
-      annAttachedMap[annIdx].push(img.dataUrl);
-  });
-  uploadedImages.forEach(function(img) { img.selected = false; });
-  renderAdminGallery();
-  renderAttachedPreview(annIdx);
-  showToast('✅ تم إرفاق ' + selected.length + ' صورة بالإعلان');
-}
-
-function renderAttachedPreview(annIdx) {
-  var imgs = annAttachedMap[annIdx] || [];
-  var p = document.getElementById('attachedPreview');
-  if (!p) return;
-  p.innerHTML = imgs.map(function(src, i) {
-    return '<div class="attached-thumb">'
-      + '<img src="' + src + '">'
-      + '<button class="attached-thumb-del" onclick="detachImg(' + annIdx + ',' + i + ')">✕</button>'
-      + '</div>';
-  }).join('');
-}
-
-function detachImg(annIdx, imgIdx) {
-  annAttachedMap[annIdx].splice(imgIdx, 1);
-  renderAttachedPreview(annIdx);
-  buildAnnManage();
-  showToast('تم إلغاء إرفاق الصورة');
-}
-
-/* ══════════════════════════════════════════
-   ANNOUNCEMENTS MANAGE
-══════════════════════════════════════════ */
-function buildAnnManage() {
-  var html = '';
-  ANNOUNCEMENTS.forEach(function(a, i) {
-    var imgs = annAttachedMap[i] || [];
-    html += '<div class="ann-manage-card">'
-      + '<div class="ann-manage-row">'
-      + '<span class="ann-badge ' + a.badge + '">' + a.label + '</span>'
-      + '<div class="ann-manage-info">'
-      + '<div class="ann-manage-title">' + a.title + '</div>'
-      + '<div class="ann-manage-meta">' + a.date + '</div>'
-      + '</div>'
-      + '<span class="ann-img-count">📷 ' + imgs.length + ' صورة</span>'
-      + '</div>';
-
-    if (imgs.length) {
-      html += '<div style="display:flex;gap:8px;flex-wrap:wrap;padding:0 1.2rem 1rem;">'
-        + imgs.map(function(src, j) {
-            return '<div class="attached-thumb">'
-              + '<img src="' + src + '" onclick="openLightbox(' + JSON.stringify(imgs) + ',' + j + ')" style="cursor:zoom-in">'
-              + '<button class="attached-thumb-del" onclick="detachImg(' + i + ',' + j + ')">✕</button>'
-              + '</div>';
-          }).join('')
-        + '</div>';
-    }
-    html += '</div>';
-  });
-  document.getElementById('annManageList').innerHTML = html;
-}
-
 /* ══════════════════════════════════════════
    LIGHTBOX
 ══════════════════════════════════════════ */
@@ -1673,7 +1824,472 @@ document.getElementById('navDate').textContent =
 buildOverview();
 buildFilters();
 filterMessages();
-updateAnnSelect();
+updateAttachSelects();
+buildAnnList();
+buildActList();
+
+/* ══════════════════════════════════════════
+   SYNC — مزامنة localStorage + Google Sheets
+══════════════════════════════════════════ */
+var LS_ANN  = 'dhiqar_announcements';
+var LS_ACT  = 'dhiqar_activities';
+var LS_IMGS = 'dhiqar_images';
+
+/* ── حفظ في localStorage (يُستدعى بعد كل تعديل) ── */
+function syncSave() {
+  try {
+    /* نحفظ الإعلانات مع صورها */
+    var annWithImgs = ANNOUNCEMENTS.map(function(a, i) {
+      return Object.assign({}, a, { imgs: annAttachedMap['ann_' + i] || [] });
+    });
+    var actWithImgs = ACTIVITIES.map(function(a, i) {
+      return Object.assign({}, a, { imgs: annAttachedMap['act_' + i] || [] });
+    });
+    localStorage.setItem(LS_ANN,  JSON.stringify(annWithImgs));
+    localStorage.setItem(LS_ACT,  JSON.stringify(actWithImgs));
+  } catch(e) {
+    /* localStorage ممتلئ (5MB) — صور كبيرة جداً */
+    showToast('⚠️ مساحة التخزين ممتلئة، قلّل حجم الصور');
+  }
+
+  /* إرسال لـ Sheets إن كان الرابط مضبوطاً */
+  if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        action: 'saveContent',
+        announcements: ANNOUNCEMENTS,
+        activities: ACTIVITIES
+      })
+    }).catch(function() {});
+  }
+}
+
+/* ── تحميل من localStorage عند الفتح ── */
+function syncLoad() {
+  try {
+    var annRaw = localStorage.getItem(LS_ANN);
+    var actRaw = localStorage.getItem(LS_ACT);
+
+    if (annRaw) {
+      var annWithImgs = JSON.parse(annRaw);
+      ANNOUNCEMENTS = annWithImgs.map(function(a, i) {
+        if (a.imgs && a.imgs.length) annAttachedMap['ann_' + i] = a.imgs;
+        var copy = Object.assign({}, a);
+        delete copy.imgs;
+        return copy;
+      });
+    }
+
+    if (actRaw) {
+      var actWithImgs = JSON.parse(actRaw);
+      ACTIVITIES = actWithImgs.map(function(a, i) {
+        if (a.imgs && a.imgs.length) annAttachedMap['act_' + i] = a.imgs;
+        var copy = Object.assign({}, a);
+        delete copy.imgs;
+        return copy;
+      });
+    }
+
+    if (annRaw || actRaw) {
+      buildAnnList();
+      buildActList();
+      updateAttachSelects();
+    }
+  } catch(e) {
+    console.warn('syncLoad error:', e);
+  }
+}
+
+/* ── استدعاء syncLoad عند بدء التشغيل ── */
+syncLoad();
+
+/* ══════════════════════════════════════════
+   ANNOUNCEMENTS — إدارة الإعلانات
+══════════════════════════════════════════ */
+var editingAnnIdx = -1;
+var annModalImgs  = [];   /* صور الـ modal الحالي */
+
+function openAnnModal(idx) {
+  editingAnnIdx = idx;
+  annModalImgs  = [];
+  var isNew = idx === -1;
+  document.getElementById('annModalTitle').textContent = isNew ? 'إعلان جديد' : 'تعديل الإعلان';
+
+  if (!isNew) {
+    var a = ANNOUNCEMENTS[idx];
+    document.getElementById('annBadge').value = a.badge;
+    document.getElementById('annTitle').value = a.title;
+    document.getElementById('annDate').value  = a.date;
+    document.getElementById('annBody').value  = a.body;
+    document.getElementById('annLink').value  = a.link || '';
+    annModalImgs = (annAttachedMap['ann_' + idx] || []).slice();
+  } else {
+    document.getElementById('annBadge').value = 'badge-new';
+    document.getElementById('annTitle').value = '';
+    document.getElementById('annDate').value  = '';
+    document.getElementById('annBody').value  = '';
+    document.getElementById('annLink').value  = '';
+  }
+  renderModalImgPreview('ann');
+  document.getElementById('annModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAnnModal() {
+  document.getElementById('annModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function annOverlayClose(e) {
+  if (e.target === document.getElementById('annModal')) closeAnnModal();
+}
+
+function saveAnn() {
+  var title = document.getElementById('annTitle').value.trim();
+  var body  = document.getElementById('annBody').value.trim();
+  if (!title || !body) { showToast('⚠️ العنوان والنص مطلوبان'); return; }
+
+  var badgeVal = document.getElementById('annBadge').value;
+  var labels   = {'badge-new':'جديد','badge-event':'فعالية','badge-info':'تنبيه'};
+
+  var ann = {
+    badge: badgeVal,
+    label: labels[badgeVal],
+    title: title,
+    date:  document.getElementById('annDate').value.trim() || getTodayAr(),
+    body:  body,
+    link:  document.getElementById('annLink').value.trim(),
+    linkLabel: document.getElementById('annLink').value.trim() ? 'فتح الرابط' : ''
+  };
+
+  if (editingAnnIdx === -1) {
+    ANNOUNCEMENTS.unshift(ann);
+    annAttachedMap['ann_0'] = annModalImgs.slice();
+    /* إزاحة مفاتيح الصور */
+    for (var i = ANNOUNCEMENTS.length - 1; i > 0; i--) {
+      if (annAttachedMap['ann_' + (i-1)]) {
+        annAttachedMap['ann_' + i] = annAttachedMap['ann_' + (i-1)];
+      }
+    }
+    annAttachedMap['ann_0'] = annModalImgs.slice();
+  } else {
+    ANNOUNCEMENTS[editingAnnIdx] = ann;
+    annAttachedMap['ann_' + editingAnnIdx] = annModalImgs.slice();
+  }
+
+  closeAnnModal();
+  buildAnnList();
+  updateAttachSelects();
+  syncSave();
+  showToast(editingAnnIdx === -1 ? '✅ تم إضافة الإعلان وحفظه' : '✅ تم تحديث الإعلان');
+}
+
+function deleteAnn(idx) {
+  if (!confirm('هل تريد حذف هذا الإعلان؟')) return;
+  ANNOUNCEMENTS.splice(idx, 1);
+  delete annAttachedMap['ann_' + idx];
+  buildAnnList();
+  updateAttachSelects();
+  syncSave();
+  showToast('🗑️ تم حذف الإعلان');
+}
+
+function buildAnnList() {
+  var el = document.getElementById('annList');
+  if (!ANNOUNCEMENTS.length) {
+    el.innerHTML = '<div class="no-content"><div class="nc-icon">📢</div><p>لا توجد إعلانات — اضغط "+ إعلان جديد" للبدء</p></div>';
+    return;
+  }
+
+  var badgeColors = {
+    'badge-new':   {bg:'var(--teal-light)',  color:'var(--teal)'},
+    'badge-event': {bg:'var(--amber-light)', color:'var(--amber)'},
+    'badge-info':  {bg:'var(--blue-light)',  color:'var(--blue)'}
+  };
+
+  el.innerHTML = ANNOUNCEMENTS.map(function(a, i) {
+    var bc   = badgeColors[a.badge] || badgeColors['badge-new'];
+    var imgs = annAttachedMap['ann_' + i] || [];
+    var imgsHtml = imgs.length
+      ? '<div class="content-imgs-row">' + imgs.map(function(src, j) {
+          return '<div class="content-img-thumb">'
+            + '<img src="' + src + '" onclick="openLightbox(' + JSON.stringify(imgs) + ',' + j + ')">'
+            + '<button class="content-img-del" onclick="removeAnnImg(' + i + ',' + j + ')">✕</button>'
+            + '</div>';
+        }).join('') + '</div>'
+      : '<div style="font-size:12px;color:var(--text3);margin-top:4px">لا توجد صور مرفقة</div>';
+
+    return '<div class="content-card">'
+      + '<div class="content-card-header">'
+      + '<div class="content-card-icon" style="background:' + bc.bg + ';font-size:16px;color:' + bc.color + '">'
+      + '<span style="font-size:11px;font-weight:800">' + a.label + '</span></div>'
+      + '<div class="content-card-info">'
+      + '<div class="content-card-title">' + a.title + '</div>'
+      + '<div class="content-card-meta">📅 ' + a.date + (a.link ? ' · 🔗 يحتوي على رابط' : '') + ' · 📷 ' + imgs.length + ' صورة</div>'
+      + '</div>'
+      + '<div class="content-card-actions">'
+      + '<button class="btn btn-ghost" style="padding:5px 12px;font-size:12px" onclick="openAnnModal(' + i + ')">✏️ تعديل</button>'
+      + '<button class="btn btn-danger-soft" style="padding:5px 12px;font-size:12px" onclick="deleteAnn(' + i + ')">🗑️</button>'
+      + '</div></div>'
+      + '<div class="content-card-body"><p>' + a.body + '</p>' + imgsHtml + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+function removeAnnImg(annIdx, imgIdx) {
+  var key = 'ann_' + annIdx;
+  if (annAttachedMap[key]) {
+    annAttachedMap[key].splice(imgIdx, 1);
+    buildAnnList();
+    syncSave();
+    showToast('تم حذف الصورة');
+  }
+}
+
+/* ══════════════════════════════════════════
+   ACTIVITIES — إدارة الفعاليات
+══════════════════════════════════════════ */
+var editingActIdx = -1;
+var actModalImgs  = [];
+
+function openActModal(idx) {
+  editingActIdx = idx;
+  actModalImgs  = [];
+  var isNew = idx === -1;
+  document.getElementById('actModalTitle').textContent = isNew ? 'فعالية جديدة' : 'تعديل الفعالية';
+
+  if (!isNew) {
+    var a = ACTIVITIES[idx];
+    document.getElementById('actIcon').value  = a.icon;
+    document.getElementById('actName').value  = a.name;
+    document.getElementById('actDate').value  = a.date;
+    document.getElementById('actDesc').value  = a.desc || '';
+    document.getElementById('actColor').value = a.bg;
+    actModalImgs = (annAttachedMap['act_' + idx] || []).slice();
+  } else {
+    document.getElementById('actIcon').value  = '🎉';
+    document.getElementById('actName').value  = '';
+    document.getElementById('actDate').value  = '';
+    document.getElementById('actDesc').value  = '';
+    document.getElementById('actColor').value = 'var(--amber-light)';
+  }
+  renderModalImgPreview('act');
+  document.getElementById('actModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeActModal() {
+  document.getElementById('actModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function actOverlayClose(e) {
+  if (e.target === document.getElementById('actModal')) closeActModal();
+}
+
+function saveAct() {
+  var name = document.getElementById('actName').value.trim();
+  var date = document.getElementById('actDate').value.trim();
+  if (!name || !date) { showToast('⚠️ الاسم والتاريخ مطلوبان'); return; }
+
+  var act = {
+    icon: document.getElementById('actIcon').value.trim() || '🎉',
+    name: name,
+    date: date,
+    desc: document.getElementById('actDesc').value.trim(),
+    bg:   document.getElementById('actColor').value
+  };
+
+  if (editingActIdx === -1) {
+    ACTIVITIES.unshift(act);
+    for (var i = ACTIVITIES.length - 1; i > 0; i--) {
+      if (annAttachedMap['act_' + (i-1)]) annAttachedMap['act_' + i] = annAttachedMap['act_' + (i-1)];
+    }
+    annAttachedMap['act_0'] = actModalImgs.slice();
+  } else {
+    ACTIVITIES[editingActIdx] = act;
+    annAttachedMap['act_' + editingActIdx] = actModalImgs.slice();
+  }
+
+  closeActModal();
+  buildActList();
+  updateAttachSelects();
+  syncSave();
+  showToast(editingActIdx === -1 ? '✅ تم إضافة الفعالية وحفظها' : '✅ تم تحديث الفعالية');
+}
+
+function deleteAct(idx) {
+  if (!confirm('هل تريد حذف هذه الفعالية؟')) return;
+  ACTIVITIES.splice(idx, 1);
+  delete annAttachedMap['act_' + idx];
+  buildActList();
+  updateAttachSelects();
+  syncSave();
+  showToast('🗑️ تم حذف الفعالية');
+}
+
+function buildActList() {
+  var el = document.getElementById('actList');
+  if (!ACTIVITIES.length) {
+    el.innerHTML = '<div class="no-content"><div class="nc-icon">🎉</div><p>لا توجد فعاليات — اضغط "+ فعالية جديدة" للبدء</p></div>';
+    return;
+  }
+
+  el.innerHTML = ACTIVITIES.map(function(a, i) {
+    var imgs = annAttachedMap['act_' + i] || [];
+    var imgsHtml = imgs.length
+      ? '<div class="content-imgs-row">' + imgs.map(function(src, j) {
+          return '<div class="content-img-thumb">'
+            + '<img src="' + src + '" onclick="openLightbox(' + JSON.stringify(imgs) + ',' + j + ')">'
+            + '<button class="content-img-del" onclick="removeActImg(' + i + ',' + j + ')">✕</button>'
+            + '</div>';
+        }).join('') + '</div>'
+      : '<div style="font-size:12px;color:var(--text3);margin-top:4px">لا توجد صور مرفقة</div>';
+
+    return '<div class="content-card">'
+      + '<div class="content-card-header">'
+      + '<div class="content-card-icon" style="background:' + a.bg + '">' + a.icon + '</div>'
+      + '<div class="content-card-info">'
+      + '<div class="content-card-title">' + a.name + '</div>'
+      + '<div class="content-card-meta">📅 ' + a.date + ' · 📷 ' + imgs.length + ' صورة</div>'
+      + '</div>'
+      + '<div class="content-card-actions">'
+      + '<button class="btn btn-ghost" style="padding:5px 12px;font-size:12px" onclick="openActModal(' + i + ')">✏️ تعديل</button>'
+      + '<button class="btn btn-danger-soft" style="padding:5px 12px;font-size:12px" onclick="deleteAct(' + i + ')">🗑️</button>'
+      + '</div></div>'
+      + '<div class="content-card-body">'
+      + (a.desc ? '<p>' + a.desc + '</p>' : '')
+      + imgsHtml
+      + '</div></div>';
+  }).join('');
+}
+
+function removeActImg(actIdx, imgIdx) {
+  var key = 'act_' + actIdx;
+  if (annAttachedMap[key]) {
+    annAttachedMap[key].splice(imgIdx, 1);
+    buildActList();
+    syncSave();
+    showToast('تم حذف الصورة');
+  }
+}
+
+/* ══════════════════════════════════════════
+   MODAL IMAGES — رفع صور داخل المودال
+══════════════════════════════════════════ */
+function handleModalImgs(files, type) {
+  Array.from(files).forEach(function(file) {
+    if (!file.type.startsWith('image/') || file.size > 5 * 1024 * 1024) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      if (type === 'ann') annModalImgs.push(e.target.result);
+      if (type === 'act') actModalImgs.push(e.target.result);
+      renderModalImgPreview(type);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderModalImgPreview(type) {
+  var imgs = type === 'ann' ? annModalImgs : actModalImgs;
+  var el   = document.getElementById(type + 'ImgPreview');
+  if (!el) return;
+  el.innerHTML = imgs.map(function(src, i) {
+    return '<div class="content-img-thumb">'
+      + '<img src="' + src + '">'
+      + '<button class="content-img-del" style="opacity:1" onclick="removeModalImg(\'' + type + '\',' + i + ')">✕</button>'
+      + '</div>';
+  }).join('');
+}
+
+function removeModalImg(type, idx) {
+  if (type === 'ann') annModalImgs.splice(idx, 1);
+  if (type === 'act') actModalImgs.splice(idx, 1);
+  renderModalImgPreview(type);
+}
+
+/* ══════════════════════════════════════════
+   IMAGE LIBRARY — مكتبة الصور (إرفاق بالثلاثة)
+══════════════════════════════════════════ */
+function updateAttachSelects() {
+  var target = document.getElementById('attachTarget');
+  var sel    = document.getElementById('attachItemSelect');
+  if (!target || !sel) return;
+  _refreshAttachItems();
+  target.onchange = _refreshAttachItems;
+}
+
+function _refreshAttachItems() {
+  var target = document.getElementById('attachTarget').value;
+  var sel    = document.getElementById('attachItemSelect');
+  sel.innerHTML = '<option value="">-- اختر العنصر --</option>';
+
+  if (target === 'ann') {
+    ANNOUNCEMENTS.forEach(function(a, i) {
+      sel.innerHTML += '<option value="ann_' + i + '">' + a.title + '</option>';
+    });
+  } else if (target === 'act') {
+    ACTIVITIES.forEach(function(a, i) {
+      sel.innerHTML += '<option value="act_' + i + '">' + a.icon + ' ' + a.name + '</option>';
+    });
+  } else if (target === 'msg') {
+    messages.forEach(function(m) {
+      sel.innerHTML += '<option value="msg_' + m.id + '">' + m.id + ' — ' + m.parent + '</option>';
+    });
+  }
+}
+
+function attachSelectedImgs() {
+  var key      = document.getElementById('attachItemSelect').value;
+  if (!key) { showToast('⚠️ اختر العنصر أولاً'); return; }
+  var selected = uploadedImages.filter(function(img) { return img.selected; });
+  if (!selected.length) { showToast('⚠️ حدد صورة أو أكثر من المكتبة'); return; }
+
+  if (!annAttachedMap[key]) annAttachedMap[key] = [];
+  selected.forEach(function(img) {
+    if (annAttachedMap[key].indexOf(img.dataUrl) === -1)
+      annAttachedMap[key].push(img.dataUrl);
+  });
+  uploadedImages.forEach(function(img) { img.selected = false; });
+  renderAdminGallery();
+  renderAttachedPreview(key);
+  buildAnnList();
+  buildActList();
+  syncSave();
+  showToast('✅ تم إرفاق ' + selected.length + ' صورة');
+}
+
+function renderAttachedPreview(key) {
+  var imgs = annAttachedMap[key] || [];
+  var p    = document.getElementById('attachedPreview');
+  if (!p) return;
+  p.innerHTML = imgs.map(function(src, i) {
+    return '<div class="attached-thumb">'
+      + '<img src="' + src + '">'
+      + '<button class="attached-thumb-del" onclick="detachImg(\'' + key + '\',' + i + ')">✕</button>'
+      + '</div>';
+  }).join('');
+}
+
+function detachImg(key, imgIdx) {
+  annAttachedMap[key].splice(imgIdx, 1);
+  renderAttachedPreview(key);
+  buildAnnList();
+  buildActList();
+  showToast('تم إلغاء إرفاق الصورة');
+}
+
+/* ══════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════ */
+function getTodayAr() {
+  var months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو',
+                'يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  var d = new Date();
+  return d.getDate() + ' ' + months[d.getMonth()];
+}
 
 /* ══════════════════════════════════════════
    AUTH — تسجيل الدخول وإدارة الجلسة
