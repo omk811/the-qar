@@ -887,33 +887,29 @@ function setMsgStatus(s){
   messages[selectedMsgIdx].status = s;
   var msgId = messages[selectedMsgIdx].id;
 
-  /* حفظ الحالة في Sheets فوراً */
+  /* إرسال التحديث لـ Sheets عبر GET — الطريقة المضمونة مع GAS */
   if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
-    var fd = new FormData();
-    fd.append('action', 'updateStatus');
-    fd.append('id',     msgId);
-    fd.append('status', s);
-    fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body:fd }).catch(function(){});
+    var url = SCRIPT_URL + '?action=updateStatus&id=' + encodeURIComponent(msgId) + '&status=' + encodeURIComponent(s);
+    fetch(url, {method:'GET'}).catch(function(){});
   }
 
   closeMsgModal(); buildOverview(); filterMessages();
   showToast(s==='done' ? '✅ تم الرد وحُفظت الحالة' : '🔄 قيد المراجعة وحُفظت الحالة');
 }
+
 function deleteMsg(){
   if(selectedMsgIdx===null||!confirm('حذف هذه الرسالة؟')) return;
   var msgId = messages[selectedMsgIdx].id;
 
-  /* حذف من Sheets */
+  /* إرسال الحذف لـ Sheets عبر GET */
   if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
-    var fd = new FormData();
-    fd.append('action', 'deleteMessage');
-    fd.append('id',     msgId);
-    fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body:fd }).catch(function(){});
+    var url = SCRIPT_URL + '?action=deleteMessage&id=' + encodeURIComponent(msgId);
+    fetch(url, {method:'GET'}).catch(function(){});
   }
 
   messages.splice(selectedMsgIdx,1); filteredMsgs=messages.slice();
   closeMsgModal(); buildOverview(); filterMessages();
-  showToast('🗑️ تم الحذف من Sheets');
+  showToast('🗑️ تم الحذف');
 }
 
 function exportCSV(){
