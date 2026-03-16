@@ -478,8 +478,8 @@ select.form-control{background-image:url("data:image/svg+xml,%3Csvg xmlns='http:
     <div class="modal-header"><div class="modal-title">تفاصيل الرسالة</div><button class="modal-close" onclick="closeMsgModal()">✕</button></div>
     <div id="msgModalContent"></div>
     <div class="modal-actions">
-      <button class="mbtn mbtn-primary" onclick="setMsgStatus('done')">✓ تم الرد</button>
-      <button class="mbtn" style="background:var(--blue-light);color:var(--blue);border-color:#85B7EB" onclick="setMsgStatus('review')">🔄 مراجعة</button>
+      <button class="mbtn mbtn-primary" onclick="setMsgStatus('مكتملة')">✓ تم الرد</button>
+      <button class="mbtn" style="background:var(--blue-light);color:var(--blue);border-color:#85B7EB" onclick="setMsgStatus('قيد المراجعة')">🔄 مراجعة</button>
       <button class="mbtn mbtn-danger" onclick="deleteMsg()">🗑️ حذف</button>
     </div>
   </div>
@@ -559,17 +559,17 @@ select.form-control{background-image:url("data:image/svg+xml,%3Csvg xmlns='http:
 var LS_CONTENT  = 'dhiqar_content';     /* مشترك مع portal */
 var LS_SCRIPT   = 'dhiqar_scriptUrl';
 var LS_PIN      = 'dhiqar_pin';
-var SCRIPT_URL  = localStorage.getItem(LS_SCRIPT) || 'https://script.google.com/macros/s/AKfycbxyCh9YrFGt0brH5L4asMeE_vg4yNPNiFXg7NhehfDcTUyYPFnZ3L45VzbmYMvDNMdj/exec';
+var SCRIPT_URL  = localStorage.getItem(LS_SCRIPT) || 'https://script.google.com/macros/s/AKfycbxcF987BknRR6QbNJT3eux5f5zGbZtYPi1VJnaph9wmVMrYVEpc0cTvhA9PKrPXCkk/exec';
 
 /* ════════════════════════════════════════
    DEFAULT DATA
 ════════════════════════════════════════ */
 var DEMO_MSGS = [
-  {id:'#2026-0001',parent:'سعيد بن علي الرحبي',    phone:'+٩٦٨٩٩١٢٣٤٥٦',student:'محمد سعيد',  grade:'الثامن', section:'3',type:'استفسار أكاديمي',priority:'عادية',  status:'new',   body:'أود الاستفسار عن مستوى ابني في مادة الرياضيات وهل يحتاج إلى دروس إضافية.',   date:'١٦ مارس ٢٠٢٦',rating:4},
-  {id:'#2026-0002',parent:'فاطمة بنت خالد الهاشمية',phone:'+٩٦٨٩٨٧٦٥٤٣٢',student:'نورة خالد', grade:'السابع',section:'1',type:'غياب وتأخر',     priority:'متوسطة',status:'review',body:'ابنتي تغيبت يوم الأحد الماضي بسبب ظروف صحية وسأرفق الشهادة الطبية.',          date:'١٥ مارس ٢٠٢٦',rating:3},
-  {id:'#2026-0003',parent:'أحمد بن محمد الكندي',    phone:'+٩٦٨٩٩٨٨٧٧٦٦',student:'عمر أحمد',   grade:'الخامس',section:'2',type:'مقترح',           priority:'عادية',  status:'done',  body:'أقترح تنظيم برنامج قرائي أسبوعي لتعزيز مهارات القراءة.',                       date:'١٤ مارس ٢٠٢٦',rating:5},
-  {id:'#2026-0004',parent:'موزة بنت سلطان العلوية', phone:'+٩٦٨٩١١٢٢٣٣٤',student:'سلطان موزة',grade:'التاسع', section:'5',type:'شكوى',            priority:'عاجلة',  status:'new',   body:'أشكو من تصرف غير لائق من أحد الطلاب تجاه ابني في الملعب.',                    date:'١٦ مارس ٢٠٢٦',rating:0},
-  {id:'#2026-0005',parent:'يوسف بن ناصر البلوشي',  phone:'+٩٦٨٩٩٠٠١١٢٢',student:'ناصر يوسف', grade:'السادس',section:'7',type:'متابعة سلوكية',  priority:'متوسطة',status:'review',body:'لاحظت تغيراً في سلوك ابني مؤخراً وأرغب في مناقشة ذلك مع المرشد الطلابي.',    date:'١٣ مارس ٢٠٢٦',rating:0}
+  {id:'#2026-0001',parent:'سعيد بن علي الرحبي',    phone:'+٩٦٨٩٩١٢٣٤٥٦',student:'محمد سعيد',  grade:'الثامن', section:'3',type:'استفسار أكاديمي',priority:'عادية',  status:'جديدة',   body:'أود الاستفسار عن مستوى ابني في مادة الرياضيات وهل يحتاج إلى دروس إضافية.',   date:'١٦ مارس ٢٠٢٦',rating:4},
+  {id:'#2026-0002',parent:'فاطمة بنت خالد الهاشمية',phone:'+٩٦٨٩٨٧٦٥٤٣٢',student:'نورة خالد', grade:'السابع',section:'1',type:'غياب وتأخر',     priority:'متوسطة',status:'قيد المراجعة',body:'ابنتي تغيبت يوم الأحد الماضي بسبب ظروف صحية وسأرفق الشهادة الطبية.',          date:'١٥ مارس ٢٠٢٦',rating:3},
+  {id:'#2026-0003',parent:'أحمد بن محمد الكندي',    phone:'+٩٦٨٩٩٨٨٧٧٦٦',student:'عمر أحمد',   grade:'الخامس',section:'2',type:'مقترح',           priority:'عادية',  status:'مكتملة',  body:'أقترح تنظيم برنامج قرائي أسبوعي لتعزيز مهارات القراءة.',                       date:'١٤ مارس ٢٠٢٦',rating:5},
+  {id:'#2026-0004',parent:'موزة بنت سلطان العلوية', phone:'+٩٦٨٩١١٢٢٣٣٤',student:'سلطان موزة',grade:'التاسع', section:'5',type:'شكوى',            priority:'عاجلة',  status:'جديدة',   body:'أشكو من تصرف غير لائق من أحد الطلاب تجاه ابني في الملعب.',                    date:'١٦ مارس ٢٠٢٦',rating:0},
+  {id:'#2026-0005',parent:'يوسف بن ناصر البلوشي',  phone:'+٩٦٨٩٩٠٠١١٢٢',student:'ناصر يوسف', grade:'السادس',section:'7',type:'متابعة سلوكية',  priority:'متوسطة',status:'قيد المراجعة',body:'لاحظت تغيراً في سلوك ابني مؤخراً وأرغب في مناقشة ذلك مع المرشد الطلابي.',    date:'١٣ مارس ٢٠٢٦',rating:0}
 ];
 
 var DEF_ANN = [
@@ -651,6 +651,21 @@ function showApp() {
   buildFilters(); filterMessages();
   buildAnnList(); buildActList();
   refreshAttachItems();
+
+  /* جلب الرسائل من Sheets فوراً عند الدخول */
+  if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
+    fetch(SCRIPT_URL + '?action=getAll')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (d.ok && d.rows) {
+          messages = d.rows;
+          filteredMsgs = messages.slice();
+          buildOverview();
+          filterMessages();
+          showToast('✅ تم تحميل ' + messages.length + ' رسالة من Sheets');
+        }
+      }).catch(function(){});
+  }
 }
 
 function doLogin() {
@@ -800,9 +815,10 @@ function syncFromSheets() {
    OVERVIEW
 ════════════════════════════════════════ */
 function buildOverview() {
-  var t=messages.length, n=messages.filter(function(m){ return m.status==='new'; }).length,
-      r=messages.filter(function(m){ return m.status==='review'; }).length,
-      done=messages.filter(function(m){ return m.status==='done'; }).length;
+  var t=messages.length,
+      n   =messages.filter(function(m){ return m.status==='جديدة'; }).length,
+      r   =messages.filter(function(m){ return m.status==='قيد المراجعة'; }).length,
+      done=messages.filter(function(m){ return m.status==='مكتملة'; }).length;
   document.getElementById('newBadge').textContent = n;
   document.getElementById('overviewSub').textContent = 'يوم ' + DAYS[_d.getDay()] + ' — ' + _d.toLocaleDateString('ar-EG');
   document.getElementById('statsGrid').innerHTML =
@@ -827,7 +843,12 @@ function mkStat(n,l,c,col){ return '<div class="stat-card '+c+'"><div class="sta
    MESSAGES
 ════════════════════════════════════════ */
 function buildFilters() {
-  var f=[{k:'all',l:'الكل'},{k:'new',l:'جديدة'},{k:'review',l:'قيد المراجعة'},{k:'done',l:'مكتملة'}];
+  var f=[
+    {k:'all',           l:'الكل'},
+    {k:'جديدة',         l:'جديدة'},
+    {k:'قيد المراجعة',  l:'قيد المراجعة'},
+    {k:'مكتملة',        l:'مكتملة'}
+  ];
   document.getElementById('filterRow').innerHTML = f.map(function(x){
     return '<button class="filter-btn'+(activeFilter===x.k?' active':'')+'" onclick="setFilter(\''+x.k+'\')">'+x.l+'</button>';
   }).join('');
@@ -837,7 +858,7 @@ function filterMessages() {
   var q=(document.getElementById('searchInput').value||'').toLowerCase().trim();
   var gr=(document.getElementById('gradeFilter').value||'');
   filteredMsgs=messages.filter(function(m){
-    return (activeFilter==='all'||m.status===activeFilter)
+    return (activeFilter==='all' || m.status===activeFilter)
       && (!gr||m.grade===gr)
       && (!q||m.parent.includes(q)||m.student.includes(q)||m.type.includes(q)||m.id.includes(q));
   });
@@ -856,9 +877,10 @@ function filterMessages() {
     : '<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">📭</div><p>لا توجد رسائل مطابقة</p></div></td></tr>';
 }
 function sbadge(s){
-  if(s==='new')   return '<span class="status-badge s-new">جديدة</span>';
-  if(s==='review')return '<span class="status-badge s-review">قيد المراجعة</span>';
-  return '<span class="status-badge s-done">مكتملة</span>';
+  if(s==='جديدة')         return '<span class="status-badge s-new">جديدة</span>';
+  if(s==='قيد المراجعة')  return '<span class="status-badge s-review">قيد المراجعة</span>';
+  if(s==='مكتملة')        return '<span class="status-badge s-done">مكتملة</span>';
+  return '<span class="status-badge s-new">'+s+'</span>';
 }
 function pdot(p){
   if(p==='عاجلة')  return '<span class="priority-dot p-urgent">● عاجلة</span>';
@@ -884,17 +906,32 @@ function mf(label,val){ return '<div class="mf" style="margin-bottom:10px"><stro
 function closeMsgModal(){ document.getElementById('msgModal').classList.remove('show'); document.body.style.overflow=''; }
 function setMsgStatus(s){
   if(selectedMsgIdx===null) return;
-  messages[selectedMsgIdx].status = s;
-  var msgId = messages[selectedMsgIdx].id;
+  var m     = messages[selectedMsgIdx];
+  var msgId = m.id;
+  m.status  = s;
 
-  /* إرسال التحديث لـ Sheets عبر GET — الطريقة المضمونة مع GAS */
+  /* إرسال التحديث لـ Sheets */
   if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
-    var url = SCRIPT_URL + '?action=updateStatus&id=' + encodeURIComponent(msgId) + '&status=' + encodeURIComponent(s);
-    fetch(url, {method:'GET'}).catch(function(){});
+    var url = SCRIPT_URL
+      + '?action=updateStatus'
+      + '&id='     + encodeURIComponent(msgId)
+      + '&status=' + encodeURIComponent(s);
+
+    fetch(url)
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (d.ok) {
+          showToast(s==='مكتملة' ? '✅ تم الرد وحُفظ في Sheets' : '🔄 قيد المراجعة وحُفظ في Sheets');
+        } else {
+          showToast('⚠️ الحالة تغيّرت محلياً لكن لم تُحفظ: ' + (d.error||''));
+        }
+      })
+      .catch(function(){ showToast('⚠️ خطأ في الاتصال'); });
+  } else {
+    showToast(s==='مكتملة' ? '✅ تم الرد' : '🔄 قيد المراجعة');
   }
 
   closeMsgModal(); buildOverview(); filterMessages();
-  showToast(s==='done' ? '✅ تم الرد وحُفظت الحالة' : '🔄 قيد المراجعة وحُفظت الحالة');
 }
 
 function deleteMsg(){
