@@ -167,7 +167,7 @@ textarea.form-control{resize:vertical;min-height:110px;line-height:1.6}
   </div>
   <div style="display:flex;gap:8px;align-items:center">
     <button class="nav-btn" onclick="refreshPortal()">🔄 تحديث</button>
-    <a href="dashboard.html" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:7px 14px;border-radius:20px;font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">⚙️ لوحة الإدارة</a>
+    <a href="dashboard.html" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:7px 14px;border-radius:20px;font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">⚙️ لوحة المعلم</a>
   </div>
 </nav>
 
@@ -309,7 +309,7 @@ textarea.form-control{resize:vertical;min-height:110px;line-height:1.6}
 <script>
 /* ══ CONFIG ══ */
 var LS_CONTENT    = 'dhiqar_content';    /* مشترك مع dashboard */
-var SCRIPT_URL    = localStorage.getItem('dhiqar_scriptUrl') || 'https://script.google.com/macros/s/AKfycbwDWOZvSgL5ovRfckZrCBQJvbRK3xoPKpn9BobMxFjDmTAgGM0egfycZMxQWOQISxrc/exec';
+var SCRIPT_URL = localStorage.getItem('dhiqar_scriptUrl') || 'https://script.google.com/macros/s/AKfycbxyCh9YrFGt0brH5L4asMeE_vg4yNPNiFXg7NhehfDcTUyYPFnZ3L45VzbmYMvDNMdj/exec';
 
 /* ══ DEFAULT DATA ══ */
 var defAnn = [
@@ -442,7 +442,24 @@ function submitForm() {
   var payload = {action:'saveMessage',id:ticket,parent:vals.parentName,phone:vals.parentPhone||'—',student:vals.studentName,grade:vals.studentGrade,section:vals.studentSection,type:vals.msgType,priority:vals.priority,status:'جديدة',body:vals.msgBody,rating:userRating,date:new Date().toLocaleDateString('ar-EG')};
 
   if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
-    fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(function(){});
+    /* Google Apps Script لا يقبل Content-Type: application/json مع POST
+       الحل: إرسال البيانات عبر GET مع query parameters */
+    var params = new URLSearchParams();
+    params.append('action',   'saveMessage');
+    params.append('parent',   payload.parent);
+    params.append('phone',    payload.phone);
+    params.append('student',  payload.student);
+    params.append('grade',    payload.grade);
+    params.append('section',  payload.section);
+    params.append('type',     payload.type);
+    params.append('priority', payload.priority);
+    params.append('body',     payload.body);
+    params.append('rating',   String(payload.rating));
+    params.append('date',     payload.date);
+    fetch(SCRIPT_URL + '?' + params.toString(), {method:'GET'})
+      .then(function(r){ return r.json(); })
+      .then(function(d){ if(d.ok) showToast('✅ تم إرسال رسالتك للمدرسة'); })
+      .catch(function(){ /* الرسالة محفوظة محلياً */ });
   }
 
   document.getElementById('ticketNum').textContent = ticket;
