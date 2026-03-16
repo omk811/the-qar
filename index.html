@@ -405,7 +405,7 @@
     }
 
     .announce-body.open {
-      max-height: 200px;
+      max-height: 600px;
       padding: 0 1.2rem 1.1rem;
     }
 
@@ -1009,9 +1009,6 @@
       justify-content: center;
     }
 
-    /* announce-body max-height fix for images */
-    .announce-body.open { max-height: 600px !important; }
-
     .ann-link {
       display: inline-flex;
       align-items: center;
@@ -1061,14 +1058,6 @@
         <div class="hero-stat"><strong>٢٤</strong><span>ساعة للرد</span></div>
         <div class="hero-stat"><strong>٦</strong><span>خدمات متاحة</span></div>
         <div class="hero-stat"><strong>٥–٩</strong><span>الصفوف الدراسية</span></div>
-      </div>
-    </div>
-
-    <!-- GOOGLE SHEETS NOTE -->
-    <div class="gs-note">
-      <span class="gs-icon">📋</span>
-      <div>
-        <strong>ربط Google Sheets:</strong> لتفعيل حفظ البيانات، افتح ملف <code>script.gs</code> وضع رابط جدول البيانات في المتغير <code>SHEET_URL</code>، ثم استبدل <code>YOUR_SCRIPT_URL</code> في الكود بعنوان النشر.
       </div>
     </div>
 
@@ -1525,7 +1514,6 @@
 
   /* ══ IMAGE MANAGER ══ */
   var uploadedImages = [];  /* {name, dataUrl, selected} */
-  var annAttachedMap = {};  /* annIndex -> [dataUrl,...] */
 
   function handleFiles(files) {
     var arr = Array.from(files);
