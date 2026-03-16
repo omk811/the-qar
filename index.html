@@ -1059,6 +1059,7 @@
         <div class="hero-stat"><strong>٦</strong><span>خدمات متاحة</span></div>
         <div class="hero-stat"><strong>٥–٩</strong><span>الصفوف الدراسية</span></div>
       </div>
+      <button onclick="refreshPortal()" style="margin-top:1rem;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:6px 16px;border-radius:20px;font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;">🔄 تحديث المحتوى</button>
     </div>
 
     <!-- CONTACT FORM -->
@@ -1377,7 +1378,7 @@
 <!-- ════════════════════════════ SCRIPT ════════════════════════════ -->
 <script>
   /* ══ CONFIG ══ */
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxhUx4d7qA-tybDngD-9JfY9NgkOQ_nLpZom3YhC5qDLvwvawSI54RRFOqyx2H3EgH/exec'; /* ← ضع هنا رابط Google Apps Script بعد النشر */
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxjpmuuHKXk5ys5ditcyqhBegZ33z_Yee-Z7juDNAaV4JsxLbXb3GyPGIG6wYNW74k/exec'; /* ← ضع هنا رابط Google Apps Script بعد النشر */
 
   /* ══ STATE ══ */
   var rating = 0;
@@ -1406,7 +1407,46 @@
     { icon:'📚', name:'أسبوع القراءة والثقافة',  date:'٧ أبريل ٢٠٢٦',  bg:'var(--teal-light)'  }
   ];
 
-  /* ══ RATING ══ */
+  /* ══ SYNC — قراءة البيانات من localStorage ══ */
+  var LS_ANN = 'dhiqar_announcements';
+  var LS_ACT = 'dhiqar_activities';
+
+  function syncLoadPortal() {
+    try {
+      var annRaw = localStorage.getItem(LS_ANN);
+      var actRaw = localStorage.getItem(LS_ACT);
+
+      if (annRaw) {
+        var saved = JSON.parse(annRaw);
+        if (saved && saved.length) {
+          saved.forEach(function(a, i) {
+            /* portal يستخدم مفتاح رقمي: annAttachedMap[i] */
+            if (a.imgs && a.imgs.length) annAttachedMap[i] = a.imgs;
+          });
+          announcements = saved.map(function(a) {
+            var copy = Object.assign({}, a);
+            delete copy.imgs;
+            return copy;
+          });
+        }
+      }
+
+      if (actRaw) {
+        var savedAct = JSON.parse(actRaw);
+        if (savedAct && savedAct.length) {
+          activities = savedAct.map(function(a) {
+            var copy = Object.assign({}, a);
+            delete copy.imgs;
+            return copy;
+          });
+        }
+      }
+    } catch(e) {
+      console.warn('portal syncLoad error:', e);
+    }
+  }
+
+  syncLoadPortal();
   function setRating(n) {
     rating = n;
     document.querySelectorAll('.star').forEach(function(s, i) {
@@ -1659,6 +1699,7 @@
         + '<div>'
         + '<div class="activity-name">' + a.name + '</div>'
         + '<div class="activity-date">' + a.date + '</div>'
+        + (a.desc ? '<div style="font-size:11px;color:var(--text2);margin-top:2px">' + a.desc + '</div>' : '')
         + '</div></div>';
     });
     document.getElementById('activities').innerHTML = html;
@@ -1813,6 +1854,43 @@
   buildAnnouncements();
   buildActivities();
   refreshDashboard();
+
+  /* ══ REFRESH — تحديث من localStorage أو Sheets ══ */
+  function refreshPortal() {
+    syncLoadPortal();
+    buildAnnouncements();
+    buildActivities();
+
+    /* إن كان Sheets مضبوطاً، اجلب آخر نسخة */
+    var scriptUrl = localStorage.getItem('scriptUrl');
+    if (scriptUrl && scriptUrl !== 'YOUR_SCRIPT_URL') {
+      fetch(scriptUrl + '?action=getContent')
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d.ok) {
+            if (d.announcements && d.announcements.length) {
+              d.announcements.forEach(function(a, i) {
+                if (a.imgs && a.imgs.length) annAttachedMap[i] = a.imgs;
+              });
+              announcements = d.announcements.map(function(a) {
+                var c = Object.assign({}, a); delete c.imgs; return c;
+              });
+              /* حفظ في localStorage للمرة القادمة */
+              localStorage.setItem('dhiqar_announcements', JSON.stringify(d.announcements));
+            }
+            if (d.activities && d.activities.length) {
+              activities = d.activities.map(function(a) {
+                var c = Object.assign({}, a); delete c.imgs; return c;
+              });
+              localStorage.setItem('dhiqar_activities', JSON.stringify(d.activities));
+            }
+            buildAnnouncements();
+            buildActivities();
+          }
+        })
+        .catch(function() { /* يبقى على localStorage */ });
+    }
+  }
 </script>
 </body>
 </html>
