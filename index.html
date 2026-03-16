@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة التواصل المدرسي - مدرسة ذي قار للتعليم الأساسي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:        #0F6E56;
+      --teal-dark:   #085041;
+      --teal-mid:    #1D9E75;
+      --teal-light:  #E1F5EE;
+      --teal-border: #5DCAA5;
+      --amber:       #BA7517;
+      --amber-light: #FAEEDA;
+      --coral:       #993C1D;
+      --coral-light: #FAECE7;
+      --blue-light:  #E6F1FB;
+      --blue:        #185FA5;
+      --green-light: #EAF3DE;
+      --danger:      #E24B4A;
+      --bg:          #f5f3ed;
+      --card:        #ffffff;
+      --border:      #e0dbd1;
+      --border-soft: #ede9e1;
+      --text:        #2C2C2A;
+      --text2:       #5F5E5A;
+      --text3:       #888780;
+      --shadow:      0 2px 12px rgba(0,0,0,0.06);
+      --shadow-md:   0 4px 24px rgba(0,0,0,0.10);
+      --radius:      12px;
+      --radius-lg:   16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ── NAV ── */
+    .nav {
+      background: var(--teal);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 2px 16px rgba(15,110,86,0.25);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-logo {
+      width: 42px;
+      height: 42px;
+      background: rgba(255,255,255,0.18);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .nav-title { font-size: 15px; font-weight: 700; line-height: 1.3; }
+    .nav-title small { font-size: 11px; opacity: 0.72; display: block; font-weight: 400; }
+
+    .nav-tabs { display: flex; gap: 6px; }
+
+    .nav-tab {
+      padding: 8px 18px;
+      border-radius: 24px;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all .2s ease;
+    }
+
+    .nav-tab.active {
+      background: #fff;
+      color: var(--teal);
+      border-color: #fff;
+    }
+
+    .nav-tab:not(.active) {
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.9);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .nav-tab:not(.active):hover {
+      background: rgba(255,255,255,0.22);
+    }
+
+    /* ── PAGES ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .page-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--teal);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 2rem;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      left: -60px; top: -60px;
+      width: 220px; height: 220px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      left: 80px; bottom: -80px;
+      width: 180px; height: 180px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 4px 14px;
+      border-radius: 24px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 { font-size: 24px; font-weight: 800; margin-bottom: 8px; position: relative; }
+    .hero p { font-size: 13.5px; opacity: 0.85; line-height: 1.7; position: relative; max-width: 560px; }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1.4rem;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .hero-stat { text-align: center; }
+    .hero-stat strong { display: block; font-size: 26px; font-weight: 800; }
+    .hero-stat span { font-size: 11px; opacity: 0.72; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      padding: 1.4rem;
+      box-shadow: var(--shadow);
+    }
+
+    .card + .card { margin-top: 1rem; }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      flex-shrink: 0;
+    }
+
+    .card-title { font-size: 15px; font-weight: 700; color: var(--text); }
+    .card-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+    /* ── GRID ── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ── FORM ── */
+    .form-group { margin-bottom: 1.1rem; }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text2);
+      margin-bottom: 7px;
+    }
+
+    .form-label .req { color: var(--danger); margin-right: 2px; }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: #fff;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      appearance: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--teal-mid);
+      box-shadow: 0 0 0 3px rgba(29,158,117,0.12);
+    }
+
+    .form-control::placeholder { color: var(--text3); }
+
+    select.form-control {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888780' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: left 14px center;
+      padding-left: 36px;
+      cursor: pointer;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 110px;
+      line-height: 1.6;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    /* ── BUTTON ── */
+    .btn-primary {
+      width: 100%;
+      padding: 13px;
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-primary:hover { background: var(--teal-dark); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    /* ── SUCCESS ── */
+    .success-box {
+      display: none;
+      background: var(--teal-light);
+      border: 1px solid var(--teal-border);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      text-align: center;
+      margin-top: 1.2rem;
+      animation: fadeIn .4s ease;
+    }
+
+    .success-box.show { display: block; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .success-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--teal);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 22px;
+      color: #fff;
+    }
+
+    .success-box h3 { color: var(--teal); font-size: 16px; margin-bottom: 6px; }
+    .success-box p { color: var(--teal-dark); font-size: 13px; }
+
+    /* ── RATING ── */
+    .rating-wrap {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+    .star {
+      font-size: 30px;
+      cursor: pointer;
+      color: #D3D1C7;
+      transition: color .15s, transform .15s;
+      user-select: none;
+    }
+
+    .star:hover { transform: scale(1.1); }
+    .star.lit { color: #EF9F27; }
+
+    /* ── ANNOUNCEMENTS ── */
+    .announce-card {
+      background: var(--card);
+      border-radius: 10px;
+      border: 1px solid var(--border-soft);
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: box-shadow .2s;
+    }
+
+    .announce-card:hover { box-shadow: var(--shadow); }
+
+    .announce-header {
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .announce-badge {
+      padding: 3px 11px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .badge-new   { background: var(--teal-light); color: var(--teal); }
+    .badge-event { background: var(--amber-light); color: var(--amber); }
+    .badge-info  { background: var(--blue-light);  color: var(--blue); }
+
+    .announce-title { font-size: 14px; font-weight: 600; flex: 1; }
+    .announce-date { font-size: 11px; color: var(--text3); white-space: nowrap; }
+
+    .announce-toggle {
+      font-size: 12px;
+      color: var(--text3);
+      transition: transform .25s;
+      flex-shrink: 0;
+    }
+
+    .announce-toggle.open { transform: rotate(180deg); }
+
+    .announce-body {
+      padding: 0 1.2rem;
+      font-size: 13.5px;
+      color: var(--text2);
+      line-height: 1.75;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease, padding .3s;
+    }
+
+    .announce-body.open {
+      max-height: 200px;
+      padding: 0 1.2rem 1.1rem;
+    }
+
+    /* ── INFO ROWS ── */
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 13.5px;
+    }
+
+    .info-row:last-child { border-bottom: none; }
+
+    .info-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--teal-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .info-label { font-size: 11px; color: var(--text3); display: block; margin-bottom: 1px; }
+    .info-val { font-weight: 600; color: var(--text); }
+
+    /* ── ACTIVITIES ── */
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px;
+      border-radius: 10px;
+      border: 1px solid var(--border-soft);
+      transition: transform .2s;
+    }
+
+    .activity-item:hover { transform: translateY(-2px); }
+    .activity-icon { font-size: 22px; flex-shrink: 0; }
+    .activity-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .activity-date { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+    /* ── DASHBOARD ── */
+    .dash-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .dash-header h2 { font-size: 20px; font-weight: 800; }
+    .dash-header p { font-size: 13px; color: var(--text3); margin-top: 2px; }
+    .dash-date { font-size: 12px; color: var(--text3); text-align: left; }
+    .dash-date strong { display: block; font-size: 14px; color: var(--text); font-weight: 700; }
+
+    /* ── STAT CARDS ── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      padding: 1.1rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform .2s;
+    }
+
+    .stat-card:hover { transform: translateY(-2px); }
+    .stat-num { font-size: 32px; font-weight: 800; color: var(--teal); }
+    .stat-lbl { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+    /* ── SEARCH / FILTER ── */
+    .search-wrap { position: relative; margin-bottom: 1rem; }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 10px 14px 10px 40px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 13.5px;
+      background: var(--card);
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .search-wrap input:focus { border-color: var(--teal-mid); }
+    .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 15px; pointer-events: none; }
+
+    .filter-row { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+
+    .filter-btn {
+      padding: 6px 16px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      font-family: 'Cairo', sans-serif;
+      font-size: 12.5px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text2);
+      transition: all .2s;
+    }
+
+    .filter-btn:hover { background: var(--bg); }
+    .filter-btn.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; }
+
+    .msg-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .msg-table th {
+      background: var(--bg);
+      padding: 10px 14px;
+      text-align: right;
+      font-size: 12px;
+      color: var(--text3);
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .msg-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: middle;
+    }
+
+    .msg-table tr:last-child td { border-bottom: none; }
+    .msg-table tbody tr:hover td { background: #fafaf7; }
+
+    .status-badge {
+      padding: 4px 11px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .status-new    { background: var(--amber-light); color: var(--amber); }
+    .status-done   { background: var(--teal-light);  color: var(--teal); }
+    .status-review { background: var(--blue-light);  color: var(--blue); }
+
+    .type-badge {
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 11px;
+      background: var(--bg);
+      color: var(--text2);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .priority-dot { font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .p-urgent  { color: var(--danger); }
+    .p-medium  { color: var(--amber); }
+    .p-normal  { color: var(--text3); }
+
+    .btn-view {
+      padding: 5px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      font-family: 'Cairo', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text2);
+      transition: all .2s;
+      white-space: nowrap;
+    }
+
+    .btn-view:hover { background: var(--teal-light); color: var(--teal); border-color: var(--teal-border); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(2px);
+    }
+
+    .modal-overlay.show { display: flex; }
+
+    .modal {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-md);
+      animation: slideUp .3s ease;
+    }
+
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.3rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .modal-title { font-size: 16px; font-weight: 700; }
+
+    .modal-close {
+      background: var(--bg);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s;
+    }
+
+    .modal-close:hover { background: var(--border); }
+
+    .modal-field { margin-bottom: 12px; }
+    .modal-field strong { color: var(--text3); display: block; margin-bottom: 3px; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .modal-field p { color: var(--text); line-height: 1.65; font-size: 14px; }
+    .modal-msg-body { background: var(--bg); padding: 12px; border-radius: 9px; line-height: 1.75; border: 1px solid var(--border-soft); }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 1.4rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .btn-modal {
+      flex: 1;
+      padding: 10px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      font-family: 'Cairo', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .btn-modal.primary { background: var(--teal); color: #fff; border-color: var(--teal); }
+    .btn-modal.primary:hover { background: var(--teal-dark); }
+    .btn-modal.secondary { background: var(--card); color: var(--text2); }
+    .btn-modal.secondary:hover { background: var(--bg); }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 12px;
+      color: var(--text3);
+      border-top: 1px solid var(--border-soft);
+      margin-top: 2rem;
+    }
+
+    .footer span { color: var(--teal); font-weight: 600; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .nav { padding: 0 1rem; }
+      .nav-title small { display: none; }
+      .nav-tab { padding: 7px 12px; font-size: 12px; }
+      .page-inner { padding: 1rem; }
+      .form-row, .form-split { grid-template-columns: 1fr; }
+      .hero { padding: 1.5rem 1.2rem; }
+      .hero h1 { font-size: 18px; }
+      .hero-stats { gap: 1.2rem; }
+      .hide-mobile { display: none !important; }
+      .dash-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 2.5rem;
+      color: var(--text3);
+    }
+
+    .empty-state .empty-icon { font-size: 36px; margin-bottom: 10px; }
+    .empty-state p { font-size: 14px; }
+
+    /* ── GOOGLE SHEETS NOTE ── */
+    .gs-note {
+      background: var(--blue-light);
+      border: 1px solid #B5D4F4;
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      font-size: 13px;
+      color: var(--blue);
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .gs-note .gs-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .gs-note a { color: var(--blue); font-weight: 700; }
+
+    /* ── ANNOUNCE IMAGE GALLERY ── */
+    .ann-gallery {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .ann-thumb {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: zoom-in;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .ann-thumb:hover {
+      transform: scale(1.06);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      cursor: zoom-out;
+      animation: lbFadeIn .2s ease;
+    }
+
+    @keyframes lbFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .lightbox.show { display: flex; }
+
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      border-radius: 10px;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.5);
+      object-fit: contain;
+      animation: lbZoom .25s ease;
+      transition: opacity .12s ease;
+    }
+
+    @keyframes lbZoom { from { transform: scale(0.88); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .lightbox-close {
+      position: fixed;
+      top: 1.2rem;
+      left: 1.2rem;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s;
+      z-index: 1000;
+    }
+
+    .lightbox-close:hover { background: rgba(255,255,255,0.28); }
+
+    .lightbox-counter {
+      position: fixed;
+      bottom: 1.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.7);
+      font-size: 13px;
+      background: rgba(0,0,0,0.4);
+      padding: 4px 14px;
+      border-radius: 20px;
+    }
+
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 22px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s;
+      z-index: 1000;
+    }
+
+    .lightbox-nav:hover { background: rgba(255,255,255,0.25); }
+    .lightbox-prev { right: 1rem; }
+    .lightbox-next { left: 1rem; }
+
+    /* ── ADMIN IMAGE UPLOAD ── */
+    .img-manager {
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .img-manager-header {
+      background: var(--bg);
+      padding: 10px 1.2rem;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text2);
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: 10px;
+      padding: 1.8rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+      margin: 1rem;
+      background: var(--bg);
+    }
+
+    .upload-zone:hover, .upload-zone.drag-over {
+      border-color: var(--teal-mid);
+      background: var(--teal-light);
+    }
+
+    .upload-zone input[type="file"] { display: none; }
+    .upload-icon { font-size: 32px; margin-bottom: 8px; }
+    .upload-text { font-size: 13px; color: var(--text2); line-height: 1.6; }
+    .upload-text strong { color: var(--teal); }
+
+    .admin-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+      padding: 0 1rem 1rem;
+    }
+
+    .admin-img-item {
+      position: relative;
+      border-radius: 9px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 1;
+      background: var(--bg);
+    }
+
+    .admin-img-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+      transition: transform .2s;
+    }
+
+    .admin-img-item:hover img { transform: scale(1.04); }
+
+    .admin-img-del {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: 26px;
+      height: 26px;
+      background: rgba(226,75,74,0.88);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .admin-img-item:hover .admin-img-del { opacity: 1; }
+
+    .admin-img-label {
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 10px;
+      padding: 4px 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ann-select-wrap {
+      padding: 0 1rem 1rem;
+    }
+
+    .btn-attach {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--teal-border);
+      background: var(--teal-light);
+      color: var(--teal);
+      font-family: 'Cairo', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .btn-attach:hover { background: var(--teal); color: #fff; }
+
+    .attached-imgs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .attached-thumb {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .attached-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+    .attached-thumb-del {
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 20px; height: 20px;
+      background: rgba(226,75,74,0.9);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* announce-body max-height fix for images */
+    .announce-body.open { max-height: 600px !important; }
+
+    .ann-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 5px 12px;
+      border: 1px solid var(--teal-border);
+      border-radius: 20px;
+      background: var(--teal-light);
+      transition: all .2s;
+    }
+
+    .ann-link:hover { background: var(--teal); color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════ NAV ════════════════════════════ -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">م</div>
+    <div class="nav-title">
+      مدرسة ذي قار للتعليم الأساسي
+      <small>بوابة التواصل المدرسي (٥–٩)</small>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('parent', this)">أولياء الأمور</button>
+    <button class="nav-tab" onclick="showPage('dashboard', this)">لوحة التحكم</button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════ PAGE: PARENT ════════════════════════════ -->
+<div class="page active" id="page-parent">
+  <div class="page-inner">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-badge">🎓 بوابة التواصل المدرسي</div>
+      <h1>مرحباً بكم في بوابة مدرسة ذي قار</h1>
+      <p>منصة موحدة لتواصل أولياء الأمور مع إدارة المدرسة ومتابعة أبنائهم بكل يسر وسهولة</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>٢٤</strong><span>ساعة للرد</span></div>
+        <div class="hero-stat"><strong>٦</strong><span>خدمات متاحة</span></div>
+        <div class="hero-stat"><strong>٥–٩</strong><span>الصفوف الدراسية</span></div>
+      </div>
+    </div>
+
+    <!-- GOOGLE SHEETS NOTE -->
+    <div class="gs-note">
+      <span class="gs-icon">📋</span>
+      <div>
+        <strong>ربط Google Sheets:</strong> لتفعيل حفظ البيانات، افتح ملف <code>script.gs</code> وضع رابط جدول البيانات في المتغير <code>SHEET_URL</code>، ثم استبدل <code>YOUR_SCRIPT_URL</code> في الكود بعنوان النشر.
+      </div>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="card" style="margin-bottom: 1rem;">
+      <div class="card-header">
+        <div class="card-icon" style="background: var(--teal-light);">📨</div>
+        <div>
+          <div class="card-title">نموذج التواصل مع المدرسة</div>
+          <div class="card-sub">أرسل استفساراتك وملاحظاتك مباشرة للإدارة</div>
+        </div>
+      </div>
+
+      <!-- Row 1: parent name + phone -->
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label"><span class="req">*</span> اسم ولي الأمر</label>
+          <input type="text" class="form-control" id="parentName" placeholder="الاسم الكامل">
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span class="req">*</span> رقم الهاتف</label>
+          <input type="tel" class="form-control" id="parentPhone" placeholder="+٩٦٨ XXXXXXXX">
+        </div>
+      </div>
+
+      <!-- Row 2: student name + grade + section -->
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label"><span class="req">*</span> اسم الطالب / الطالبة</label>
+          <input type="text" class="form-control" id="studentName" placeholder="الاسم الكامل للطالب">
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span class="req">*</span> الصف والشعبة</label>
+          <div class="form-split">
+            <select class="form-control" id="studentGrade">
+              <option value="">الصف</option>
+              <option value="الخامس">الخامس</option>
+              <option value="السادس">السادس</option>
+              <option value="السابع">السابع</option>
+              <option value="الثامن">الثامن</option>
+              <option value="التاسع">التاسع</option>
+            </select>
+            <select class="form-control" id="studentSection">
+              <option value="">الشعبة</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: type + priority -->
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label"><span class="req">*</span> نوع التواصل</label>
+          <select class="form-control" id="msgType">
+            <option value="">-- اختر نوع الرسالة --</option>
+            <option value="استفسار أكاديمي">استفسار أكاديمي</option>
+            <option value="متابعة سلوكية">متابعة سلوكية</option>
+            <option value="غياب وتأخر">غياب وتأخر</option>
+            <option value="شكوى">شكوى</option>
+            <option value="مقترح">مقترح</option>
+            <option value="أخرى">أخرى</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">درجة الأولوية</label>
+          <select class="form-control" id="priority">
+            <option value="عادية">عادية</option>
+            <option value="متوسطة">متوسطة</option>
+            <option value="عاجلة">عاجلة</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Message -->
+      <div class="form-group">
+        <label class="form-label"><span class="req">*</span> تفاصيل الرسالة</label>
+        <textarea class="form-control" id="msgBody" placeholder="اكتب رسالتك هنا بالتفصيل..."></textarea>
+      </div>
+
+      <!-- Rating -->
+      <div class="form-group">
+        <label class="form-label">تقييم تجربة التواصل السابقة <span style="color:var(--text3);font-weight:400">(اختياري)</span></label>
+        <div class="rating-wrap" id="ratingWrap">
+          <span class="star" onclick="setRating(1)">★</span>
+          <span class="star" onclick="setRating(2)">★</span>
+          <span class="star" onclick="setRating(3)">★</span>
+          <span class="star" onclick="setRating(4)">★</span>
+          <span class="star" onclick="setRating(5)">★</span>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="submitForm()">إرسال الرسالة ←</button>
+
+      <div class="success-box" id="successBox">
+        <div class="success-icon">✓</div>
+        <h3>تم إرسال رسالتك بنجاح!</h3>
+        <p>سيتواصل معك فريق المدرسة خلال 24 ساعة عمل.<br>رقم متابعتك: <strong id="ticketNum" style="color:var(--teal)"></strong></p>
+      </div>
+    </div>
+
+    <!-- ANNOUNCEMENTS -->
+    <div class="card" style="margin-bottom: 1rem;">
+      <div class="card-header">
+        <div class="card-icon" style="background: var(--amber-light);">📢</div>
+        <div>
+          <div class="card-title">الإعلانات والأخبار المدرسية</div>
+          <div class="card-sub">آخر المستجدات والفعاليات</div>
+        </div>
+      </div>
+      <div id="announcements"></div>
+    </div>
+
+    <!-- INFO + HOURS -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background: var(--blue-light);">📍</div>
+          <div><div class="card-title">معلومات التواصل</div></div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📞</div>
+          <div><span class="info-label">هاتف المدرسة</span><span class="info-val">+٩٦٨ ٢٦٨٣٠٠٠٠</span></div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📧</div>
+          <div><span class="info-label">البريد الإلكتروني</span><span class="info-val">dhiqar@edu.om</span></div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📍</div>
+          <div><span class="info-label">الموقع</span><span class="info-val">شمال الباطنة، سلطنة عُمان</span></div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🌐</div>
+          <div><span class="info-label">المديرية</span><span class="info-val">تعليم شمال الباطنة</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background: var(--green-light);">🕐</div>
+          <div><div class="card-title">أوقات العمل والاستقبال</div></div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📅</div>
+          <div><span class="info-label">الدوام المدرسي</span><span class="info-val">الأحد — الخميس</span></div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">⏰</div>
+          <div><span class="info-label">دوام الطلاب</span><span class="info-val">٧:١٠ ص — ١:٣٠ م</span></div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">👤</div>
+          <div><span class="info-label">استقبال أولياء الأمور</span><span class="info-val">٨:٠٠ ص — ١١:٠٠ ص</span></div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📲</div>
+          <div><span class="info-label">الرد على الرسائل</span><span class="info-val">خلال ٢٤ ساعة عمل</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVITIES -->
+    <div class="card" style="margin-top: 1rem;">
+      <div class="card-header">
+        <div class="card-icon" style="background: var(--coral-light);">🎉</div>
+        <div>
+          <div class="card-title">الأنشطة والفعاليات القادمة</div>
+          <div class="card-sub">الفصل الدراسي الثاني — ١٤٤٦هـ</div>
+        </div>
+      </div>
+      <div class="activity-grid" id="activities"></div>
+    </div>
+
+    <div class="footer">
+      جميع الحقوق محفوظة © ١٤٤٦هـ — <span>مدرسة ذي قار للتعليم الأساسي (٥–٩)</span><br>
+      تعليم شمال الباطنة · سلطنة عُمان
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════ PAGE: DASHBOARD ════════════════════════════ -->
+<div class="page" id="page-dashboard">
+  <div class="page-inner">
+
+    <div class="dash-header">
+      <div>
+        <h2>لوحة تحكم المعلم</h2>
+        <p>إدارة الرسائل الواردة من أولياء الأمور</p>
+      </div>
+      <div class="dash-date">
+        <strong id="dashDate"></strong>
+        مدرسة ذي قار للتعليم الأساسي
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stat-grid" id="statsGrid"></div>
+
+    <!-- MESSAGES CARD -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon" style="background: var(--teal-light);">📬</div>
+        <div>
+          <div class="card-title">الرسائل الواردة</div>
+          <div class="card-sub" id="msgCount">جميع الرسائل</div>
+        </div>
+      </div>
+
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="بحث بالاسم أو الصف أو نوع الرسالة..." id="searchInput" oninput="filterMessages()">
+      </div>
+
+      <div class="filter-row" id="filterRow"></div>
+
+      <div class="table-wrap">
+        <table class="msg-table">
+          <thead>
+            <tr>
+              <th>ولي الأمر</th>
+              <th>الطالب / الصف</th>
+              <th class="hide-mobile">النوع</th>
+              <th>الحالة</th>
+              <th class="hide-mobile">الأولوية</th>
+              <th>إجراء</th>
+            </tr>
+          </thead>
+          <tbody id="msgBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- IMAGE MANAGER CARD -->
+    <div class="card" style="margin-top: 1rem;">
+      <div class="card-header">
+        <div class="card-icon" style="background: var(--coral-light);">🖼️</div>
+        <div>
+          <div class="card-title">مكتبة الصور والإعلانات</div>
+          <div class="card-sub">رفع الصور وإرفاقها بإعلانات أولياء الأمور</div>
+        </div>
+      </div>
+
+      <!-- Upload zone -->
+      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('imgFileInput').click()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFiles(event)">
+        <input type="file" id="imgFileInput" accept="image/*" multiple onchange="handleFiles(this.files)">
+        <div class="upload-icon">📸</div>
+        <div class="upload-text">
+          <strong>اضغط لاختيار الصور</strong> أو اسحب وأفلت هنا<br>
+          <span style="font-size:12px;color:var(--text3)">PNG, JPG, WEBP — حجم أقصى 5MB لكل صورة</span>
+        </div>
+      </div>
+
+      <!-- Uploaded gallery -->
+      <div class="img-manager">
+        <div class="img-manager-header">
+          <span>📁 الصور المرفوعة (<span id="imgCount">0</span>)</span>
+          <button class="btn-attach" onclick="clearAllImgs()" style="font-size:12px;padding:4px 12px;border-color:#f0997b;background:var(--coral-light);color:var(--coral)">حذف الكل</button>
+        </div>
+        <div class="admin-gallery" id="adminGallery">
+          <div style="grid-column:1/-1;text-align:center;padding:1.5rem;color:var(--text3);font-size:13px">لا توجد صور مرفوعة بعد</div>
+        </div>
+      </div>
+
+      <!-- Attach to announcement -->
+      <div class="ann-select-wrap" style="margin-top:1rem;">
+        <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:8px;">📌 إرفاق صور بإعلان</div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <select class="form-control" id="annSelectForImg" style="max-width:320px;">
+            <option value="">-- اختر الإعلان --</option>
+          </select>
+          <button class="btn-attach" onclick="attachSelectedImgs()">إرفاق الصور المحددة ←</button>
+        </div>
+        <div id="attachedPreview" class="attached-imgs"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      جميع الحقوق محفوظة © ١٤٤٦هـ — <span>مدرسة ذي قار للتعليم الأساسي</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════ LIGHTBOX ════════════════════════════ -->
+<div class="lightbox" id="lightbox" onclick="lbOverlayClick(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lbNav(-1)">&#8250;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" onclick="lbNav(1)">&#8249;</button>
+  <div class="lightbox-counter" id="lbCounter"></div>
+</div>
+
+<!-- ════════════════════════════ MODAL ════════════════════════════ -->
+<div class="modal-overlay" id="modal" onclick="overlayClose(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">تفاصيل الرسالة</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modalContent"></div>
+    <div class="modal-actions">
+      <button class="btn-modal primary" onclick="markDone()">✓ تم الرد</button>
+      <button class="btn-modal secondary" onclick="closeModal()">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════ SCRIPT ════════════════════════════ -->
+<script>
+  /* ══ CONFIG ══ */
+  var SCRIPT_URL = 'YOUR_SCRIPT_URL'; /* ← ضع هنا رابط Google Apps Script بعد النشر */
+
+  /* ══ STATE ══ */
+  var rating = 0;
+  var selectedMsg = null;
+  var activeFilter = 'all';
+  var messages = [
+    { id:'#٢٠٢٦٠١', parent:'سعيد بن علي الرحبي',     phone:'+٩٦٨٩٩١٢٣٤٥٦', student:'محمد سعيد',   grade:'الثامن',  section:'3',  type:'استفسار أكاديمي', priority:'عادية',   status:'new',    msg:'أود الاستفسار عن مستوى ابني في مادة الرياضيات وهل يحتاج إلى دروس إضافية.',                        date:'١٦ مارس ٢٠٢٦' },
+    { id:'#٢٠٢٦٠٢', parent:'فاطمة بنت خالد الهاشمية', phone:'+٩٦٨٩٨٧٦٥٤٣٢', student:'نورة خالد',   grade:'السابع',  section:'1',  type:'غياب وتأخر',      priority:'متوسطة',  status:'review', msg:'ابنتي تغيبت يوم الأحد الماضي بسبب ظروف صحية وسأرفق الشهادة الطبية.',                           date:'١٥ مارس ٢٠٢٦' },
+    { id:'#٢٠٢٦٠٣', parent:'أحمد بن محمد الكندي',     phone:'+٩٦٨٩٩٨٨٧٧٦٦', student:'عمر أحمد',    grade:'الخامس',  section:'2',  type:'مقترح',            priority:'عادية',   status:'done',   msg:'أقترح تنظيم برنامج قرائي أسبوعي للطلاب لتعزيز مهارات القراءة لديهم.',                           date:'١٤ مارس ٢٠٢٦' },
+    { id:'#٢٠٢٦٠٤', parent:'موزة بنت سلطان العلوية',  phone:'+٩٦٨٩١١٢٢٣٣٤', student:'سلطان موزة',  grade:'التاسع',  section:'5',  type:'شكوى',             priority:'عاجلة',   status:'new',    msg:'أشكو من تصرف غير لائق من أحد الطلاب تجاه ابني أثناء الاستراحة في الملعب.',                      date:'١٦ مارس ٢٠٢٦' },
+    { id:'#٢٠٢٦٠٥', parent:'يوسف بن ناصر البلوشي',   phone:'+٩٦٨٩٩٠٠١١٢٢', student:'ناصر يوسف',   grade:'السادس',  section:'7',  type:'متابعة سلوكية',   priority:'متوسطة',  status:'review', msg:'لاحظت تغيراً في سلوك ابني مؤخراً وأرغب في مناقشة ذلك مع المرشد الطلابي.',                       date:'١٣ مارس ٢٠٢٦' }
+  ];
+  var filteredMessages = messages.slice();
+
+  var announcements = [
+    { badge:'badge-new',   label:'جديد',   title:'اجتماع أولياء الأمور — الثلاثاء القادم',      body:'يسعد إدارة المدرسة دعوة أولياء الأمور لحضور الاجتماع الدوري يوم الثلاثاء ١٩ مارس ٢٠٢٦ الساعة ٩ صباحاً في قاعة الاجتماعات. نأمل الحضور.',  date:'١٦ مارس', link:'', linkLabel:'' },
+    { badge:'badge-event', label:'فعالية', title:'معرض مشاريع التخطيط والتصميم',                 body:'تقيم مدرسة ذي قار معرضاً لمشاريع طالبات مادة التخطيط والتصميم يوم الأربعاء ٢٠ مارس. جميع أولياء الأمور مدعوون للحضور وتشجيع أبنائهم.', date:'١٥ مارس', link:'', linkLabel:'' },
+    { badge:'badge-info',  label:'تنبيه',  title:'جدول الاختبارات الفصلية — الفصل الثاني',      body:'يُذكَّر أولياء الأمور بأن اختبارات الفصل الدراسي الثاني تبدأ في الأسبوع الأول من أبريل ٢٠٢٦. يُرجى متابعة استعداد أبنائكم.',               date:'١٢ مارس', link:'', linkLabel:'' }
+  ];
+  var annAttachedMap = {};
+
+  var activities = [
+    { icon:'🏆', name:'مسابقة القرآن الكريم',    date:'٢٠ مارس ٢٠٢٦',  bg:'var(--amber-light)' },
+    { icon:'🎨', name:'معرض الفنون المدرسية',    date:'٢٥ مارس ٢٠٢٦',  bg:'var(--coral-light)' },
+    { icon:'⚽', name:'البطولة الرياضية الداخلية', date:'١ أبريل ٢٠٢٦', bg:'var(--green-light)' },
+    { icon:'📚', name:'أسبوع القراءة والثقافة',  date:'٧ أبريل ٢٠٢٦',  bg:'var(--teal-light)'  }
+  ];
+
+  /* ══ RATING ══ */
+  function setRating(n) {
+    rating = n;
+    document.querySelectorAll('.star').forEach(function(s, i) {
+      s.classList.toggle('lit', i < n);
+    });
+  }
+
+  /* ══ SUBMIT FORM ══ */
+  function submitForm() {
+    var pn   = document.getElementById('parentName').value.trim();
+    var ph   = document.getElementById('parentPhone').value.trim();
+    var sn   = document.getElementById('studentName').value.trim();
+    var gr   = document.getElementById('studentGrade').value;
+    var sec  = document.getElementById('studentSection').value;
+    var type = document.getElementById('msgType').value;
+    var pri  = document.getElementById('priority').value;
+    var body = document.getElementById('msgBody').value.trim();
+
+    if (!pn || !sn || !gr || !sec || !type || !body) {
+      alert('⚠️ يرجى تعبئة جميع الحقول الإلزامية (*)');
+      return;
+    }
+
+    var ticketNum = '#٢٠٢٦٠' + (messages.length + 1);
+    var newMsg = {
+      id: ticketNum, parent: pn, phone: ph || '—',
+      student: sn, grade: gr, section: sec,
+      type: type, priority: pri, status: 'new',
+      msg: body, date: 'اليوم', rating: rating
+    };
+    messages.unshift(newMsg);
+    filteredMessages = messages.slice();
+
+    /* Send to Google Sheets (if configured) */
+    if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
+      var payload = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newMsg)
+      };
+      fetch(SCRIPT_URL, payload).catch(function() {});
+    }
+
+    document.getElementById('ticketNum').textContent = ticketNum;
+    document.getElementById('successBox').classList.add('show');
+
+    /* Reset */
+    ['parentName','parentPhone','studentName','msgBody'].forEach(function(id) {
+      document.getElementById(id).value = '';
+    });
+    ['studentGrade','studentSection','msgType'].forEach(function(id) {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('priority').value = 'عادية';
+    rating = 0;
+    document.querySelectorAll('.star').forEach(function(s) { s.classList.remove('lit'); });
+
+    refreshDashboard();
+
+    setTimeout(function() {
+      document.getElementById('successBox').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  }
+
+  /* ══ LIGHTBOX ══ */
+  var lbImages = [];
+  var lbIndex  = 0;
+
+  function openLightbox(imgs, idx) {
+    lbImages = imgs;
+    lbIndex  = idx;
+    document.getElementById('lbImg').src = lbImages[lbIndex];
+    document.getElementById('lbCounter').textContent = (lbIndex + 1) + ' / ' + lbImages.length;
+    document.getElementById('lightbox').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', lbKeyHandler);
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('show');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', lbKeyHandler);
+  }
+
+  function lbNav(dir) {
+    lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+    var img = document.getElementById('lbImg');
+    img.style.opacity = '0';
+    setTimeout(function() {
+      img.src = lbImages[lbIndex];
+      img.style.opacity = '1';
+      document.getElementById('lbCounter').textContent = (lbIndex + 1) + ' / ' + lbImages.length;
+    }, 120);
+  }
+
+  function lbOverlayClick(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  function lbKeyHandler(e) {
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowRight') lbNav(-1);
+    if (e.key === 'ArrowLeft')  lbNav(1);
+  }
+
+  /* ══ IMAGE MANAGER ══ */
+  var uploadedImages = [];  /* {name, dataUrl, selected} */
+  var annAttachedMap = {};  /* annIndex -> [dataUrl,...] */
+
+  function handleFiles(files) {
+    var arr = Array.from(files);
+    arr.forEach(function(file) {
+      if (!file.type.startsWith('image/') || file.size > 5 * 1024 * 1024) return;
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        uploadedImages.push({ name: file.name, dataUrl: e.target.result, selected: false });
+        renderAdminGallery();
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function dragOver(e) { e.preventDefault(); document.getElementById('uploadZone').classList.add('drag-over'); }
+  function dragLeave() { document.getElementById('uploadZone').classList.remove('drag-over'); }
+  function dropFiles(e) {
+    e.preventDefault();
+    dragLeave();
+    handleFiles(e.dataTransfer.files);
+  }
+
+  function renderAdminGallery() {
+    var g = document.getElementById('adminGallery');
+    document.getElementById('imgCount').textContent = uploadedImages.length;
+    if (!uploadedImages.length) {
+      g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:1.5rem;color:var(--text3);font-size:13px">لا توجد صور مرفوعة بعد</div>';
+      return;
+    }
+    g.innerHTML = uploadedImages.map(function(img, i) {
+      var sel = img.selected ? 'outline:3px solid var(--teal);' : '';
+      return '<div class="admin-img-item" style="' + sel + '" onclick="toggleImgSelect(' + i + ')">'
+        + '<img src="' + img.dataUrl + '" alt="' + img.name + '" onclick="event.stopPropagation();openLightbox(uploadedImages.map(function(x){return x.dataUrl}),' + i + ')">'
+        + '<button class="admin-img-del" onclick="event.stopPropagation();deleteImg(' + i + ')">✕</button>'
+        + '<div class="admin-img-label">' + img.name + '</div>'
+        + '</div>';
+    }).join('');
+    updateAnnSelect();
+  }
+
+  function toggleImgSelect(i) {
+    uploadedImages[i].selected = !uploadedImages[i].selected;
+    renderAdminGallery();
+  }
+
+  function deleteImg(i) {
+    uploadedImages.splice(i, 1);
+    renderAdminGallery();
+  }
+
+  function clearAllImgs() {
+    if (uploadedImages.length && confirm('هل تريد حذف جميع الصور؟')) {
+      uploadedImages = [];
+      renderAdminGallery();
+    }
+  }
+
+  function updateAnnSelect() {
+    var sel = document.getElementById('annSelectForImg');
+    var cur = sel.value;
+    sel.innerHTML = '<option value="">-- اختر الإعلان --</option>';
+    announcements.forEach(function(a, i) {
+      sel.innerHTML += '<option value="' + i + '">' + a.title + '</option>';
+    });
+    if (cur) sel.value = cur;
+  }
+
+  function attachSelectedImgs() {
+    var annIdx = document.getElementById('annSelectForImg').value;
+    if (annIdx === '') { alert('يرجى اختيار إعلان أولاً'); return; }
+    var selected = uploadedImages.filter(function(img) { return img.selected; });
+    if (!selected.length) { alert('يرجى تحديد صورة أو أكثر من المكتبة'); return; }
+    if (!annAttachedMap[annIdx]) annAttachedMap[annIdx] = [];
+    selected.forEach(function(img) {
+      if (annAttachedMap[annIdx].indexOf(img.dataUrl) === -1)
+        annAttachedMap[annIdx].push(img.dataUrl);
+    });
+    uploadedImages.forEach(function(img) { img.selected = false; });
+    renderAdminGallery();
+    buildAnnouncements();
+    renderAttachedPreview(annIdx);
+    alert('✅ تم إرفاق ' + selected.length + ' صورة بالإعلان بنجاح!');
+  }
+
+  function renderAttachedPreview(annIdx) {
+    var imgs = annAttachedMap[annIdx] || [];
+    var p = document.getElementById('attachedPreview');
+    p.innerHTML = imgs.map(function(src, i) {
+      return '<div class="attached-thumb">'
+        + '<img src="' + src + '">'
+        + '<button class="attached-thumb-del" onclick="detachImg(' + annIdx + ',' + i + ')">✕</button>'
+        + '</div>';
+    }).join('');
+  }
+
+  function detachImg(annIdx, imgIdx) {
+    annAttachedMap[annIdx].splice(imgIdx, 1);
+    buildAnnouncements();
+    renderAttachedPreview(annIdx);
+  }
+
+  /* ══ ANNOUNCEMENTS (override to support images + links) ══ */
+  function buildAnnouncements() {
+    var html = '';
+    announcements.forEach(function(a, i) {
+      var imgs = annAttachedMap[i] || [];
+      var galleryHtml = '';
+      if (imgs.length) {
+        galleryHtml = '<div class="ann-gallery">'
+          + imgs.map(function(src, j) {
+            return '<img class="ann-thumb" src="' + src + '" alt="صورة" onclick="openLightbox(' + JSON.stringify(imgs) + ',' + j + ')">';
+          }).join('')
+          + '</div>';
+      }
+      var linkHtml = a.link
+        ? '<br><a class="ann-link" href="' + a.link + '" target="_blank" rel="noopener">🔗 ' + (a.linkLabel || 'فتح الرابط') + '</a>'
+        : '';
+      html += '<div class="announce-card">'
+        + '<div class="announce-header" onclick="toggleAnn(' + i + ')">'
+        + '<span class="announce-badge ' + a.badge + '">' + a.label + '</span>'
+        + '<span class="announce-title">' + a.title + (imgs.length ? ' <span style="font-size:11px;color:var(--text3)">📷' + imgs.length + '</span>' : '') + '</span>'
+        + '<span class="announce-date">' + a.date + '</span>'
+        + '<span class="announce-toggle" id="tog' + i + '">▼</span>'
+        + '</div>'
+        + '<div class="announce-body" id="ann' + i + '">' + a.body + linkHtml + galleryHtml + '</div>'
+        + '</div>';
+    });
+    document.getElementById('announcements').innerHTML = html;
+    updateAnnSelect();
+  }
+
+  function toggleAnn(i) {
+    document.getElementById('ann' + i).classList.toggle('open');
+    document.getElementById('tog' + i).classList.toggle('open');
+  }
+
+  /* ══ ACTIVITIES ══ */
+  function buildActivities() {
+    var html = '';
+    activities.forEach(function(a) {
+      html += '<div class="activity-item" style="background:' + a.bg + '; border-color: transparent;">'
+        + '<span class="activity-icon">' + a.icon + '</span>'
+        + '<div>'
+        + '<div class="activity-name">' + a.name + '</div>'
+        + '<div class="activity-date">' + a.date + '</div>'
+        + '</div></div>';
+    });
+    document.getElementById('activities').innerHTML = html;
+  }
+
+  /* ══ FILTERS ══ */
+  function buildFilters() {
+    var filters = [
+      { key: 'all',    label: 'الكل' },
+      { key: 'new',    label: 'جديدة' },
+      { key: 'review', label: 'قيد المراجعة' },
+      { key: 'done',   label: 'مكتملة' }
+    ];
+    document.getElementById('filterRow').innerHTML = filters.map(function(f) {
+      return '<button class="filter-btn' + (activeFilter === f.key ? ' active' : '')
+        + '" onclick="setFilter(\'' + f.key + '\')">' + f.label + '</button>';
+    }).join('');
+  }
+
+  function setFilter(f) {
+    activeFilter = f;
+    buildFilters();
+    filterMessages();
+  }
+
+  /* ══ FILTER MESSAGES ══ */
+  function filterMessages() {
+    var q = document.getElementById('searchInput').value.trim().toLowerCase();
+    filteredMessages = messages.filter(function(m) {
+      var mf = activeFilter === 'all' || m.status === activeFilter;
+      var ms = !q
+        || m.parent.includes(q)
+        || m.student.includes(q)
+        || m.grade.includes(q)
+        || m.section.includes(q)
+        || m.type.includes(q);
+      return mf && ms;
+    });
+    buildTable();
+    document.getElementById('msgCount').textContent = 'عدد الرسائل: ' + filteredMessages.length;
+  }
+
+  /* ══ TABLE ══ */
+  function statusBadge(s) {
+    if (s === 'new')    return '<span class="status-badge status-new">جديدة</span>';
+    if (s === 'review') return '<span class="status-badge status-review">قيد المراجعة</span>';
+    return '<span class="status-badge status-done">مكتملة</span>';
+  }
+
+  function priorityDisplay(p) {
+    if (p === 'عاجلة')   return '<span class="priority-dot p-urgent">● عاجلة</span>';
+    if (p === 'متوسطة') return '<span class="priority-dot p-medium">● متوسطة</span>';
+    return '<span class="priority-dot p-normal">● عادية</span>';
+  }
+
+  function buildTable() {
+    if (!filteredMessages.length) {
+      document.getElementById('msgBody').innerHTML =
+        '<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">📭</div><p>لا توجد رسائل مطابقة للبحث</p></div></td></tr>';
+      return;
+    }
+    var html = '';
+    filteredMessages.forEach(function(m) {
+      var cls = 'الصف ' + m.grade + ' – شعبة ' + m.section;
+      var idx = messages.indexOf(m);
+      html += '<tr>'
+        + '<td><div style="font-weight:700;font-size:13px">' + m.parent + '</div>'
+        + '<div style="font-size:11px;color:var(--text3)">' + m.id + '</div></td>'
+        + '<td><div style="font-size:13px;font-weight:600">' + m.student + '</div>'
+        + '<div style="font-size:11px;color:var(--text3)">' + cls + '</div></td>'
+        + '<td class="hide-mobile"><span class="type-badge">' + m.type + '</span></td>'
+        + '<td>' + statusBadge(m.status) + '</td>'
+        + '<td class="hide-mobile">' + priorityDisplay(m.priority) + '</td>'
+        + '<td><button class="btn-view" onclick="openModal(' + idx + ')">عرض</button></td>'
+        + '</tr>';
+    });
+    document.getElementById('msgBody').innerHTML = html;
+  }
+
+  /* ══ STATS ══ */
+  function buildStats() {
+    var total  = messages.length;
+    var newC   = messages.filter(function(m) { return m.status === 'new'; }).length;
+    var review = messages.filter(function(m) { return m.status === 'review'; }).length;
+    var done   = messages.filter(function(m) { return m.status === 'done'; }).length;
+    document.getElementById('statsGrid').innerHTML =
+      '<div class="stat-card"><div class="stat-num">' + total  + '</div><div class="stat-lbl">إجمالي الرسائل</div></div>'
+    + '<div class="stat-card"><div class="stat-num" style="color:var(--amber)">' + newC  + '</div><div class="stat-lbl">رسائل جديدة</div></div>'
+    + '<div class="stat-card"><div class="stat-num" style="color:var(--blue)">' + review + '</div><div class="stat-lbl">قيد المراجعة</div></div>'
+    + '<div class="stat-card"><div class="stat-num">' + done  + '</div><div class="stat-lbl">تمت الإجابة</div></div>';
+  }
+
+  function refreshDashboard() {
+    buildStats();
+    buildFilters();
+    filterMessages();
+  }
+
+  /* ══ MODAL ══ */
+  function openModal(i) {
+    selectedMsg = i;
+    var m = messages[i];
+    var cls = 'الصف ' + m.grade + ' – شعبة ' + m.section;
+    document.getElementById('modalContent').innerHTML =
+      '<div class="modal-field"><strong>ولي الأمر</strong><p>' + m.parent + '</p></div>'
+    + '<div class="modal-field"><strong>رقم الهاتف</strong><p>' + m.phone + '</p></div>'
+    + '<div class="modal-field"><strong>الطالب / الصف</strong><p>' + m.student + ' — ' + cls + '</p></div>'
+    + '<div class="modal-field"><strong>نوع الرسالة</strong><p>' + m.type + ' &nbsp;|&nbsp; الأولوية: ' + m.priority + '</p></div>'
+    + '<div class="modal-field"><strong>التاريخ</strong><p>' + m.date + '</p></div>'
+    + '<div class="modal-field"><strong>نص الرسالة</strong><p class="modal-msg-body">' + m.msg + '</p></div>'
+    + (m.rating ? '<div class="modal-field"><strong>تقييم ولي الأمر</strong><p>' + '★'.repeat(m.rating) + '☆'.repeat(5 - m.rating) + '</p></div>' : '');
+    document.getElementById('modal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  function overlayClose(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+
+  function markDone() {
+    if (selectedMsg !== null) {
+      messages[selectedMsg].status = 'done';
+      refreshDashboard();
+      closeModal();
+    }
+  }
+
+  /* ══ PAGE SWITCH ══ */
+  function showPage(p, btn) {
+    document.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(el) { el.classList.remove('active'); });
+    document.getElementById('page-' + p).classList.add('active');
+    btn.classList.add('active');
+    if (p === 'dashboard') refreshDashboard();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ══ DATE ══ */
+  var days = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  var d = new Date();
+  var dd = String(d.getDate()).padStart(2, '0');
+  var mm = String(d.getMonth() + 1).padStart(2, '0');
+  document.getElementById('dashDate').textContent =
+    days[d.getDay()] + ' ' + dd + '/' + mm + '/' + d.getFullYear();
+
+  /* ══ INIT ══ */
+  buildAnnouncements();
+  buildActivities();
+  refreshDashboard();
+</script>
+</body>
+</html>
