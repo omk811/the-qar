@@ -309,7 +309,7 @@ textarea.form-control{resize:vertical;min-height:110px;line-height:1.6}
 <script>
 /* ══ CONFIG ══ */
 var LS_CONTENT    = 'dhiqar_content';    /* مشترك مع dashboard */
-var SCRIPT_URL = localStorage.getItem('dhiqar_scriptUrl') || 'https://script.google.com/macros/s/AKfycbxcF987BknRR6QbNJT3eux5f5zGbZtYPi1VJnaph9wmVMrYVEpc0cTvhA9PKrPXCkk/exec';
+var SCRIPT_URL = localStorage.getItem('dhiqar_scriptUrl') || 'https://script.google.com/macros/s/AKfycbz9KU-A8bf9TRJjsJ9nPmgoGjGg7lMdFEbU3O3COndyyoYOOcmGyzHvyKhPYvdk5rLb/exec';
 
 /* ══ DEFAULT DATA ══ */
 var defAnn = [
@@ -433,43 +433,54 @@ function submitForm() {
     priority:      document.getElementById('priority').value,
     msgBody:       document.getElementById('msgBody').value.trim()
   };
+
   if (!vals.parentName||!vals.studentName||!vals.studentGrade||!vals.studentSection||!vals.msgType||!vals.msgBody) {
     showToast('⚠️ يرجى تعبئة جميع الحقول الإلزامية (*)');
     return;
   }
+
   ticketSeq++;
   var ticket = '#' + new Date().getFullYear() + '-' + String(ticketSeq).padStart(4,'0');
-  var payload = {action:'saveMessage',id:ticket,parent:vals.parentName,phone:vals.parentPhone||'—',student:vals.studentName,grade:vals.studentGrade,section:vals.studentSection,type:vals.msgType,priority:vals.priority,status:'جديدة',body:vals.msgBody,rating:userRating,date:new Date().toLocaleDateString('ar-EG')};
 
+  /* ══ إرسال لـ Google Apps Script ══
+     الطريقة الوحيدة التي تعمل مع GAS بدون CORS:
+     FormData + mode:'no-cors' — لا نحتاج استقبال الرد */
   if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
-    /* Google Apps Script لا يقبل Content-Type: application/json مع POST
-       الحل: إرسال البيانات عبر GET مع query parameters */
-    var params = new URLSearchParams();
-    params.append('action',   'saveMessage');
-    params.append('parent',   payload.parent);
-    params.append('phone',    payload.phone);
-    params.append('student',  payload.student);
-    params.append('grade',    payload.grade);
-    params.append('section',  payload.section);
-    params.append('type',     payload.type);
-    params.append('priority', payload.priority);
-    params.append('body',     payload.body);
-    params.append('rating',   String(payload.rating));
-    params.append('date',     payload.date);
-    fetch(SCRIPT_URL + '?' + params.toString(), {method:'GET'})
-      .then(function(r){ return r.json(); })
-      .then(function(d){ if(d.ok) showToast('✅ تم إرسال رسالتك للمدرسة'); })
-      .catch(function(){ /* الرسالة محفوظة محلياً */ });
+    var fd = new FormData();
+    fd.append('action',   'saveMessage');
+    fd.append('parent',   vals.parentName);
+    fd.append('phone',    vals.parentPhone || '—');
+    fd.append('student',  vals.studentName);
+    fd.append('grade',    vals.studentGrade);
+    fd.append('section',  vals.studentSection);
+    fd.append('type',     vals.msgType);
+    fd.append('priority', vals.priority);
+    fd.append('body',     vals.msgBody);
+    fd.append('rating',   String(userRating));
+    fd.append('date',     new Date().toLocaleDateString('ar-EG'));
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode:   'no-cors',   /* يتجاوز CORS — لا نقرأ الرد لكن البيانات تصل */
+      body:   fd
+    }).catch(function(){});
   }
 
+  /* إظهار النجاح فوراً بدون انتظار الرد */
   document.getElementById('ticketNum').textContent = ticket;
   document.getElementById('successBox').classList.add('show');
-  ['parentName','parentPhone','studentName','msgBody'].forEach(function(id){ document.getElementById(id).value=''; });
-  ['studentGrade','studentSection','msgType'].forEach(function(id){ document.getElementById(id).value=''; });
+  ['parentName','parentPhone','studentName','msgBody'].forEach(function(id){
+    document.getElementById(id).value='';
+  });
+  ['studentGrade','studentSection','msgType'].forEach(function(id){
+    document.getElementById(id).value='';
+  });
   document.getElementById('priority').value='عادية';
   userRating=0;
   document.querySelectorAll('.star').forEach(function(s){ s.classList.remove('lit'); });
-  setTimeout(function(){ document.getElementById('successBox').scrollIntoView({behavior:'smooth',block:'center'}); },100);
+  setTimeout(function(){
+    document.getElementById('successBox').scrollIntoView({behavior:'smooth',block:'center'});
+  },100);
 }
 
 /* ══ LIGHTBOX ══ */
@@ -506,6 +517,21 @@ function showToast(msg) {
 /* ══ INIT ══ */
 loadContent();
 renderAll();
+/* جلب أحدث محتوى من Sheets تلقائياً عند كل فتح */
+if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
+  fetch(SCRIPT_URL + '?action=getContent')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (!d.ok) return;
+      var changed = false;
+      if (d.announcements && d.announcements.length){ announcements = d.announcements; changed=true; }
+      if (d.activities    && d.activities.length)   { activities    = d.activities;    changed=true; }
+      if (changed) {
+        localStorage.setItem(LS_CONTENT, JSON.stringify({announcements:announcements,activities:activities}));
+        renderAll();
+      }
+    }).catch(function(){});
+}
 </script>
 </body>
 </html>
