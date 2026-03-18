@@ -586,11 +586,11 @@ var DEF_ACT = [
 ];
 
 /* ════════════════════════════════════════
-   STATE
+   STATE — البيانات تأتي من Sheets
 ════════════════════════════════════════ */
 var messages       = DEMO_MSGS.map(function(m){ return Object.assign({},m); });
-var announcements  = DEF_ANN.map(function(a){ return Object.assign({},a); });
-var activities     = DEF_ACT.map(function(a){ return Object.assign({},a); });
+var announcements  = [];   /* تُملأ من Sheets أو localStorage */
+var activities     = [];   /* تُملأ من Sheets أو localStorage */
 var filteredMsgs   = messages.slice();
 var activeFilter   = 'all';
 var selectedMsgIdx = null;
@@ -795,25 +795,25 @@ function saveContent() {
 }
 
 function loadContent() {
-  /* قراءة من localStorage أولاً (سريع) */
+  /* قراءة من localStorage — نقبل المصفوفات الفارغة (تعني الحذف المتعمد) */
   try {
     var raw = localStorage.getItem(LS_CONTENT);
-    if (!raw) return;
+    if (!raw) return;               /* لا يوجد شيء محفوظ بعد */
     var d = JSON.parse(raw);
-    if (d.announcements && d.announcements.length) announcements = d.announcements;
-    if (d.activities    && d.activities.length)    activities    = d.activities;
+    if (Array.isArray(d.announcements)) announcements = d.announcements;
+    if (Array.isArray(d.activities))    activities    = d.activities;
   } catch(e) {}
 }
 
 function syncContentFromSheets() {
-  /* جلب الإعلانات والفعاليات من Sheets وتحديث localStorage */
   if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
     fetch(SCRIPT_URL + '?action=getContent')
       .then(function(r){ return r.json(); })
       .then(function(d){
         if (d.ok) {
-          if (d.announcements && d.announcements.length) announcements = d.announcements;
-          if (d.activities    && d.activities.length)    activities    = d.activities;
+          /* نقبل المصفوفات الفارغة — تعني أن المعلم حذف الكل */
+          if (Array.isArray(d.announcements)) announcements = d.announcements;
+          if (Array.isArray(d.activities))    activities    = d.activities;
           localStorage.setItem(LS_CONTENT, JSON.stringify({
             announcements: announcements,
             activities:    activities
