@@ -559,7 +559,7 @@ select.form-control{background-image:url("data:image/svg+xml,%3Csvg xmlns='http:
 var LS_CONTENT  = 'dhiqar_content';     /* مشترك مع portal */
 var LS_SCRIPT   = 'dhiqar_scriptUrl';
 var LS_PIN      = 'dhiqar_pin';
-var SCRIPT_URL  = localStorage.getItem(LS_SCRIPT) || 'https://script.google.com/macros/s/AKfycbxcF987BknRR6QbNJT3eux5f5zGbZtYPi1VJnaph9wmVMrYVEpc0cTvhA9PKrPXCkk/exec';
+var SCRIPT_URL  = localStorage.getItem(LS_SCRIPT) || 'https://script.google.com/macros/s/AKfycbz9KU-A8bf9TRJjsJ9nPmgoGjGg7lMdFEbU3O3COndyyoYOOcmGyzHvyKhPYvdk5rLb/exec';
 
 /* ════════════════════════════════════════
    DEFAULT DATA
@@ -652,7 +652,7 @@ function showApp() {
   buildAnnList(); buildActList();
   refreshAttachItems();
 
-  /* جلب الرسائل من Sheets فوراً عند الدخول */
+  /* جلب الرسائل والمحتوى من Sheets فوراً عند الدخول */
   if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
     fetch(SCRIPT_URL + '?action=getAll')
       .then(function(r){ return r.json(); })
@@ -660,11 +660,11 @@ function showApp() {
         if (d.ok && d.rows) {
           messages = d.rows;
           filteredMsgs = messages.slice();
-          buildOverview();
-          filterMessages();
-          showToast('✅ تم تحميل ' + messages.length + ' رسالة من Sheets');
+          buildOverview(); filterMessages();
         }
       }).catch(function(){});
+
+    syncContentFromSheets();
   }
 }
 
@@ -777,20 +777,25 @@ document.getElementById('navDate').textContent = DAYS[_d.getDay()] + ' ' + _d.ge
    SYNC — localStorage (مشترك مع portal)
 ════════════════════════════════════════ */
 function saveContent() {
+  /* ١. حفظ في localStorage فوراً */
   try {
     localStorage.setItem(LS_CONTENT, JSON.stringify({
       announcements: announcements,
       activities:    activities
     }));
   } catch(e) { showToast('⚠️ مساحة التخزين ممتلئة'); }
+
+  /* ٢. إرسال لـ Sheets عبر GET (الطريقة الوحيدة التي تعمل مع GAS) */
   if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
-    fetch(SCRIPT_URL, {method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({action:'saveContent', announcements:announcements, activities:activities})
-    }).catch(function(){});
+    var ann = encodeURIComponent(JSON.stringify(announcements));
+    var act = encodeURIComponent(JSON.stringify(activities));
+    var url = SCRIPT_URL + '?action=saveContent&ann=' + ann + '&act=' + act;
+    fetch(url).catch(function(){});
   }
 }
 
 function loadContent() {
+  /* قراءة من localStorage أولاً (سريع) */
   try {
     var raw = localStorage.getItem(LS_CONTENT);
     if (!raw) return;
@@ -798,6 +803,25 @@ function loadContent() {
     if (d.announcements && d.announcements.length) announcements = d.announcements;
     if (d.activities    && d.activities.length)    activities    = d.activities;
   } catch(e) {}
+}
+
+function syncContentFromSheets() {
+  /* جلب الإعلانات والفعاليات من Sheets وتحديث localStorage */
+  if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
+    fetch(SCRIPT_URL + '?action=getContent')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (d.ok) {
+          if (d.announcements && d.announcements.length) announcements = d.announcements;
+          if (d.activities    && d.activities.length)    activities    = d.activities;
+          localStorage.setItem(LS_CONTENT, JSON.stringify({
+            announcements: announcements,
+            activities:    activities
+          }));
+          buildAnnList(); buildActList();
+        }
+      }).catch(function(){});
+  }
 }
 
 function syncFromSheets() {
