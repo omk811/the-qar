@@ -312,20 +312,9 @@ var LS_CONTENT    = 'dhiqar_content';    /* مشترك مع dashboard */
 var SCRIPT_URL = localStorage.getItem('dhiqar_scriptUrl') || 'https://script.google.com/macros/s/AKfycbz9KU-A8bf9TRJjsJ9nPmgoGjGg7lMdFEbU3O3COndyyoYOOcmGyzHvyKhPYvdk5rLb/exec';
 
 /* ══ DEFAULT DATA ══ */
-var defAnn = [
-  {badge:'badge-new',  label:'جديد',   title:'اجتماع أولياء الأمور — الثلاثاء القادم',date:'١٦ مارس',body:'يسعد إدارة المدرسة دعوة أولياء الأمور لحضور الاجتماع الدوري يوم الثلاثاء ١٩ مارس ٢٠٢٦ الساعة ٩ صباحاً في قاعة الاجتماعات. نأمل الحضور.',link:'',imgs:[]},
-  {badge:'badge-event',label:'فعالية',title:'معرض مشاريع التخطيط والتصميم',           date:'١٥ مارس',body:'تقيم مدرسة ذي قار معرضاً لمشاريع طالبات مادة التخطيط والتصميم يوم الأربعاء ٢٠ مارس. جميع أولياء الأمور مدعوون للحضور.',link:'',imgs:[]},
-  {badge:'badge-info', label:'تنبيه', title:'جدول الاختبارات الفصلية — الفصل الثاني',date:'١٢ مارس',body:'يُذكَّر أولياء الأمور بأن اختبارات الفصل الدراسي الثاني تبدأ في الأسبوع الأول من أبريل ٢٠٢٦. يُرجى متابعة استعداد أبنائكم.',link:'',imgs:[]}
-];
-var defAct = [
-  {icon:'🏆',name:'مسابقة القرآن الكريم',   date:'٢٠ مارس ٢٠٢٦',desc:'',bg:'#FAEEDA',imgs:[]},
-  {icon:'🎨',name:'معرض الفنون المدرسية',   date:'٢٥ مارس ٢٠٢٦',desc:'',bg:'#FAECE7',imgs:[]},
-  {icon:'⚽',name:'البطولة الرياضية الداخلية',date:'١ أبريل ٢٠٢٦', desc:'',bg:'#EAF3DE',imgs:[]},
-  {icon:'📚',name:'أسبوع القراءة والثقافة', date:'٧ أبريل ٢٠٢٦', desc:'',bg:'#E1F5EE',imgs:[]}
-];
-
-var announcements = defAnn.map(function(a){ return Object.assign({},a); });
-var activities    = defAct.map(function(a){ return Object.assign({},a); });
+/* البيانات تأتي من Sheets عبر dashboard — لا بيانات افتراضية */
+var announcements = [];
+var activities    = [];
 var userRating = 0;
 var ticketSeq  = 0;
 
@@ -335,8 +324,8 @@ function loadContent() {
     var raw = localStorage.getItem(LS_CONTENT);
     if (!raw) return;
     var d = JSON.parse(raw);
-    if (d.announcements && d.announcements.length) announcements = d.announcements;
-    if (d.activities    && d.activities.length)    activities    = d.activities;
+    if (Array.isArray(d.announcements)) announcements = d.announcements;
+    if (Array.isArray(d.activities))    activities    = d.activities;
   } catch(e) { console.warn('loadContent:', e); }
 }
 
@@ -523,11 +512,15 @@ if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
     .then(function(r){ return r.json(); })
     .then(function(d){
       if (!d.ok) return;
+      /* نقبل المصفوفات الفارغة — تعني أن المعلم حذف الكل */
       var changed = false;
-      if (d.announcements && d.announcements.length){ announcements = d.announcements; changed=true; }
-      if (d.activities    && d.activities.length)   { activities    = d.activities;    changed=true; }
+      if (Array.isArray(d.announcements)){ announcements = d.announcements; changed=true; }
+      if (Array.isArray(d.activities))   { activities    = d.activities;    changed=true; }
       if (changed) {
-        localStorage.setItem(LS_CONTENT, JSON.stringify({announcements:announcements,activities:activities}));
+        localStorage.setItem(LS_CONTENT, JSON.stringify({
+          announcements: announcements,
+          activities:    activities
+        }));
         renderAll();
       }
     }).catch(function(){});
