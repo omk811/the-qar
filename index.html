@@ -309,7 +309,7 @@ textarea.form-control{resize:vertical;min-height:110px;line-height:1.6}
 <script>
 /* ══ CONFIG ══ */
 var LS_CONTENT    = 'dhiqar_content';    /* مشترك مع dashboard */
-var SCRIPT_URL = localStorage.getItem('dhiqar_scriptUrl') || 'https://script.google.com/macros/s/AKfycbz9KU-A8bf9TRJjsJ9nPmgoGjGg7lMdFEbU3O3COndyyoYOOcmGyzHvyKhPYvdk5rLb/exec';
+var SCRIPT_URL = localStorage.getItem('dhiqar_scriptUrl') || 'https://script.google.com/macros/s/AKfycbwBBkpNofWm66IrsX2KdpXI08LyOAvVcMZbRjynJK24qhLH949mmFxK7_oUzCJJhAi3/exec';
 
 /* ══ DEFAULT DATA ══ */
 /* البيانات تأتي من Sheets عبر dashboard — لا بيانات افتراضية */
@@ -512,10 +512,11 @@ if (SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
     .then(function(r){ return r.json(); })
     .then(function(d){
       if (!d.ok) return;
-      /* نقبل المصفوفات الفارغة — تعني أن المعلم حذف الكل */
+      /* null = لم يُحفظ في Sheets بعد ← نبقي ما عندنا
+         [] أو مصفوفة = بيانات حقيقية (حتى لو فارغة) ← نُطبّقها */
       var changed = false;
-      if (Array.isArray(d.announcements)){ announcements = d.announcements; changed=true; }
-      if (Array.isArray(d.activities))   { activities    = d.activities;    changed=true; }
+      if (d.announcements !== null){ announcements = d.announcements; changed=true; }
+      if (d.activities    !== null){ activities    = d.activities;    changed=true; }
       if (changed) {
         localStorage.setItem(LS_CONTENT, JSON.stringify({
           announcements: announcements,
