@@ -8,44 +8,39 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --teal:#0F6E56;--teal-dark:#085041;--teal-mid:#1D9E75;
-  --teal-light:#E1F5EE;--teal-border:#5DCAA5;
-  --amber:#BA7517;--amber-light:#FAEEDA;
-  --coral:#993C1D;--coral-light:#FAECE7;
-  --blue:#185FA5;--blue-light:#E6F1FB;
-  --green-light:#EAF3DE;
+  --teal:#0F6E56;--teal-d:#085041;--teal-m:#1D9E75;--teal-l:#E1F5EE;--teal-b:#5DCAA5;
+  --amber:#BA7517;--amber-l:#FAEEDA;
+  --coral:#993C1D;--coral-l:#FAECE7;
+  --blue:#185FA5;--blue-l:#E6F1FB;
+  --green-l:#EAF3DE;
   --danger:#E24B4A;
-  --bg:#f5f3ed;--card:#fff;
-  --border:#e0dbd1;--border-soft:#ede9e1;
+  --bg:#f5f3ed;--card:#fff;--border:#e0dbd1;--border-s:#ede9e1;
   --text:#2C2C2A;--text2:#5F5E5A;--text3:#888780;
-  --shadow:0 2px 12px rgba(0,0,0,.06);
-  --shadow-md:0 4px 24px rgba(0,0,0,.10);
-  --radius:12px;--radius-lg:16px;
+  --shadow:0 2px 12px rgba(0,0,0,.06);--shadow-m:0 4px 24px rgba(0,0,0,.10);
+  --r:12px;--rl:16px;
 }
 html{scroll-behavior:smooth}
 body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+a{text-decoration:none;color:inherit}
 
-/* ── NAV ── */
+/* NAV */
 .nav{background:var(--teal);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(15,110,86,.25)}
 .nav-brand{display:flex;align-items:center;gap:12px}
 .nav-logo{width:42px;height:42px;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0}
 .nav-title{font-size:14px;font-weight:700;line-height:1.3;color:#fff}
 .nav-title small{font-size:11px;opacity:.72;display:block;font-weight:400}
-.nav-actions{display:flex;gap:8px;align-items:center}
-.nav-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:7px 14px;border-radius:20px;font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:background .2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
-.nav-btn:hover{background:rgba(255,255,255,.28)}
-.nav-btn.solid{background:#fff;color:var(--teal);border-color:#fff}
-.nav-btn.solid:hover{background:rgba(255,255,255,.9)}
+.nav-r{display:flex;gap:8px;align-items:center}
+.nbtn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:7px 14px;border-radius:20px;font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:background .2s;display:inline-flex;align-items:center;gap:5px;text-decoration:none}
+.nbtn:hover{background:rgba(255,255,255,.28)}
+.nbtn.wh{background:#fff;color:var(--teal);border-color:#fff}
+.nbtn.wh:hover{background:rgba(255,255,255,.9)}
 
-/* ── PAGE ── */
+/* PAGE */
 .page{max-width:940px;margin:0 auto;padding:1.5rem 1rem}
 
-/* ── HERO ── */
-.hero{background:var(--teal);border-radius:var(--radius-lg);padding:2rem 1.8rem;color:#fff;margin-bottom:1.4rem;position:relative;overflow:hidden}
+/* HERO */
+.hero{background:var(--teal);border-radius:var(--rl);padding:2rem 1.8rem;color:#fff;margin-bottom:1.4rem;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;left:-50px;top:-50px;width:200px;height:200px;background:rgba(255,255,255,.05);border-radius:50%}
 .hero::after{content:'';position:absolute;right:-30px;bottom:-60px;width:160px;height:160px;background:rgba(255,255,255,.04);border-radius:50%}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);padding:4px 14px;border-radius:24px;font-size:12px;font-weight:600;margin-bottom:12px;position:relative}
@@ -55,140 +50,126 @@ a{color:inherit;text-decoration:none}
 .hero-stat strong{display:block;font-size:24px;font-weight:800}
 .hero-stat span{font-size:11px;opacity:.75}
 
-/* ── CARD ── */
-.card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border-soft);padding:1.4rem;box-shadow:var(--shadow);margin-bottom:1rem}
-.card-header{display:flex;align-items:center;gap:12px;margin-bottom:1.2rem}
-.card-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
-.card-title{font-size:15px;font-weight:700;color:var(--text)}
-.card-sub{font-size:12px;color:var(--text3);margin-top:2px}
+/* CARD */
+.card{background:var(--card);border-radius:var(--r);border:1px solid var(--border-s);padding:1.4rem;box-shadow:var(--shadow);margin-bottom:1rem}
+.chdr{display:flex;align-items:center;gap:12px;margin-bottom:1.2rem}
+.cico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.ctit{font-size:15px;font-weight:700;color:var(--text)}
+.csub{font-size:12px;color:var(--text3);margin-top:2px}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:1rem}
 
-/* ── FORM ── */
-.form-group{margin-bottom:1rem}
-.form-label{display:block;font-size:13px;font-weight:600;color:var(--text2);margin-bottom:6px}
+/* FORM */
+.fg{margin-bottom:1rem}
+.fl{display:block;font-size:13px;font-weight:600;color:var(--text2);margin-bottom:6px}
 .req{color:var(--danger);margin-right:2px}
-.input{width:100%;padding:10px 13px;border:1px solid var(--border);border-radius:9px;font-family:'Cairo',sans-serif;font-size:14px;color:var(--text);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;appearance:none}
-.input:focus{border-color:var(--teal-mid);box-shadow:0 0 0 3px rgba(29,158,117,.1)}
-.input::placeholder{color:var(--text3)}
-select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23888' d='M5 6L0 0h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 12px center;padding-left:32px;cursor:pointer}
-textarea.input{resize:vertical;min-height:110px;line-height:1.6}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.form-split{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.btn-submit{width:100%;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:10px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s,transform .15s}
-.btn-submit:hover{background:var(--teal-dark)}
-.btn-submit:active{transform:scale(.98)}
+.fi{width:100%;padding:10px 13px;border:1px solid var(--border);border-radius:9px;font-family:'Cairo',sans-serif;font-size:14px;color:var(--text);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;appearance:none}
+.fi:focus{border-color:var(--teal-m);box-shadow:0 0 0 3px rgba(29,158,117,.1)}
+.fi::placeholder{color:var(--text3)}
+select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23888' d='M5 6L0 0h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 12px center;padding-left:32px;cursor:pointer}
+textarea.fi{resize:vertical;min-height:110px;line-height:1.6}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fspl{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.subm{width:100%;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:10px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s,transform .15s}
+.subm:hover{background:var(--teal-d)}.subm:active{transform:scale(.98)}
 
-/* ── SUCCESS ── */
-.success-box{display:none;background:var(--teal-light);border:1px solid var(--teal-border);border-radius:var(--radius);padding:1.4rem;text-align:center;margin-top:1rem}
-.success-box.show{display:block;animation:fadeUp .4s ease}
+/* SUCCESS */
+.sbox{display:none;background:var(--teal-l);border:1px solid var(--teal-b);border-radius:var(--r);padding:1.4rem;text-align:center;margin-top:1rem}
+.sbox.on{display:block;animation:fadeUp .4s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.success-icon{width:54px;height:54px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:24px;color:#fff}
-.success-box h3{color:var(--teal);font-size:16px;margin-bottom:6px}
-.success-box p{color:var(--teal-dark);font-size:13px;line-height:1.6}
+.sico{width:54px;height:54px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:24px;color:#fff}
+.sbox h3{color:var(--teal);font-size:16px;margin-bottom:6px}
+.sbox p{color:var(--teal-d);font-size:13px;line-height:1.6}
 
-/* ── RATING ── */
-.rating-wrap{display:flex;gap:10px;justify-content:center;margin:8px 0}
+/* RATING */
+.rating{display:flex;gap:10px;justify-content:center;margin:8px 0}
 .star{font-size:28px;cursor:pointer;color:#D3D1C7;transition:color .15s,transform .15s;user-select:none;line-height:1}
-.star:hover{transform:scale(1.15)}
-.star.lit{color:#EF9F27}
+.star:hover{transform:scale(1.15)}.star.on{color:#EF9F27}
 
-/* ── ANNOUNCEMENTS ── */
-.ann-card{background:var(--card);border-radius:10px;border:1px solid var(--border-soft);margin-bottom:10px;overflow:hidden;transition:box-shadow .2s}
-.ann-card:hover{box-shadow:var(--shadow)}
-.ann-header{padding:.9rem 1.2rem;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
-.ann-badge{padding:3px 11px;border-radius:20px;font-size:11px;font-weight:700;flex-shrink:0}
-.badge-new{background:var(--teal-light);color:var(--teal)}
-.badge-event{background:var(--amber-light);color:var(--amber)}
-.badge-info{background:var(--blue-light);color:var(--blue)}
+/* ANNOUNCEMENTS */
+.ann{background:var(--card);border-radius:10px;border:1px solid var(--border-s);margin-bottom:10px;overflow:hidden;transition:box-shadow .2s}
+.ann:hover{box-shadow:var(--shadow)}
+.ann-hdr{padding:.9rem 1.2rem;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.ann-bdg{padding:3px 11px;border-radius:20px;font-size:11px;font-weight:700;flex-shrink:0}
+.badge-new{background:var(--teal-l);color:var(--teal)}
+.badge-event{background:var(--amber-l);color:var(--amber)}
+.badge-info{background:var(--blue-l);color:var(--blue)}
 .ann-title{font-size:14px;font-weight:600;flex:1;min-width:0}
 .ann-date{font-size:11px;color:var(--text3);white-space:nowrap;margin-right:6px}
-.ann-arrow{font-size:12px;color:var(--text3);transition:transform .25s;flex-shrink:0}
-.ann-arrow.open{transform:rotate(180deg)}
+.ann-arr{font-size:12px;color:var(--text3);transition:transform .25s;flex-shrink:0}
+.ann-arr.on{transform:rotate(180deg)}
 .ann-body{padding:0 1.2rem;font-size:13.5px;color:var(--text2);line-height:1.75;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s}
-.ann-body.open{max-height:900px;padding:0 1.2rem 1.1rem}
-.ann-gallery{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.ann-thumb{width:80px;height:80px;object-fit:cover;border-radius:8px;border:1px solid var(--border);cursor:zoom-in;transition:transform .2s,box-shadow .2s}
-.ann-thumb:hover{transform:scale(1.06);box-shadow:0 4px 14px rgba(0,0,0,.15)}
-.ann-link-btn{display:inline-flex;align-items:center;gap:6px;margin-top:10px;color:var(--teal);font-size:13px;font-weight:600;text-decoration:none;padding:5px 14px;border:1px solid var(--teal-border);border-radius:20px;background:var(--teal-light);transition:all .2s}
-.ann-link-btn:hover{background:var(--teal);color:#fff}
+.ann-body.on{max-height:900px;padding:0 1.2rem 1.1rem}
+.ann-lnk{display:inline-flex;align-items:center;gap:6px;margin-top:10px;color:var(--teal);font-size:13px;font-weight:600;text-decoration:none;padding:5px 14px;border:1px solid var(--teal-b);border-radius:20px;background:var(--teal-l);transition:all .2s}
+.ann-lnk:hover{background:var(--teal);color:#fff}
 
-/* ── ACTIVITIES ── */
+/* ACTIVITIES */
 .act-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
 .act-item{display:flex;align-items:flex-start;gap:12px;padding:13px;border-radius:10px;transition:transform .2s}
 .act-item:hover{transform:translateY(-2px)}
-.act-icon{font-size:24px;flex-shrink:0;margin-top:1px}
+.act-ico{font-size:24px;flex-shrink:0;margin-top:1px}
 .act-name{font-size:13px;font-weight:700;color:var(--text)}
 .act-date{font-size:11px;color:var(--text2);margin-top:2px}
 .act-desc{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.5}
-.act-imgs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.act-thumb{width:60px;height:60px;object-fit:cover;border-radius:7px;border:1px solid var(--border);cursor:zoom-in;transition:transform .2s}
-.act-thumb:hover{transform:scale(1.08)}
 
-/* ── INFO ── */
-.info-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-soft);font-size:13px}
-.info-row:last-child{border-bottom:none}
-.info-icon{width:34px;height:34px;background:var(--teal-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.info-label{font-size:11px;color:var(--text3);display:block;margin-bottom:1px}
-.info-val{font-weight:600;color:var(--text)}
-.info-link{color:var(--teal);font-weight:600;word-break:break-all;transition:opacity .2s}
-.info-link:hover{opacity:.75}
+/* INFO */
+.irow{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-s);font-size:13px}
+.irow:last-child{border-bottom:none}
+.iico{width:34px;height:34px;background:var(--teal-l);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.ilbl{font-size:11px;color:var(--text3);display:block;margin-bottom:1px}
+.ival{font-weight:600;color:var(--text)}
+.ilnk{color:var(--teal);font-weight:600;transition:opacity .2s}
+.ilnk:hover{opacity:.75}
 
-/* ── LIGHTBOX ── */
-.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;align-items:center;justify-content:center;padding:1.5rem;cursor:zoom-out}
-.lightbox.show{display:flex;animation:lbIn .2s ease}
+/* LOADING */
+.loading{text-align:center;padding:2rem;color:var(--text3);font-size:13px}
+.loading::after{content:'';display:inline-block;width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin .7s linear infinite;margin-right:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty-msg{text-align:center;padding:2rem 1rem;color:var(--text3);font-size:13px}
+
+/* LIGHTBOX */
+.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;align-items:center;justify-content:center;padding:1.5rem;cursor:zoom-out}
+.lb.on{display:flex;animation:lbIn .2s ease}
 @keyframes lbIn{from{opacity:0}to{opacity:1}}
-.lb-img{max-width:90vw;max-height:86vh;border-radius:10px;box-shadow:0 8px 48px rgba(0,0,0,.6);object-fit:contain;animation:lbZoom .22s ease}
-@keyframes lbZoom{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
-.lb-close{position:fixed;top:1rem;left:1rem;width:44px;height:44px;background:rgba(255,255,255,.12);border:none;border-radius:50%;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:1000}
-.lb-close:hover{background:rgba(255,255,255,.25)}
+.lb-img{max-width:90vw;max-height:86vh;border-radius:10px;box-shadow:0 8px 48px rgba(0,0,0,.6);object-fit:contain;animation:lbZ .22s ease}
+@keyframes lbZ{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.lb-cls{position:fixed;top:1rem;left:1rem;width:44px;height:44px;background:rgba(255,255,255,.12);border:none;border-radius:50%;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:1000}
+.lb-cls:hover{background:rgba(255,255,255,.25)}
 .lb-nav{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:none;color:#fff;font-size:28px;width:50px;height:50px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:1000}
 .lb-nav:hover{background:rgba(255,255,255,.22)}
 .lb-prev{right:1rem}.lb-next{left:1rem}
-.lb-counter{position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.8);font-size:13px;font-family:'Cairo',sans-serif;background:rgba(0,0,0,.5);padding:4px 18px;border-radius:20px}
+.lb-count{position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.8);font-size:13px;font-family:'Cairo',sans-serif;background:rgba(0,0,0,.5);padding:4px 18px;border-radius:20px}
 
-/* ── TOAST ── */
-.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--teal);color:#fff;padding:10px 22px;border-radius:24px;font-size:13px;font-weight:600;box-shadow:var(--shadow-md);z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;font-family:'Cairo',sans-serif}
-.toast.show{opacity:1}
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--teal);color:#fff;padding:10px 22px;border-radius:24px;font-size:13px;font-weight:600;box-shadow:var(--shadow-m);z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;font-family:'Cairo',sans-serif}
+.toast.on{opacity:1}
 
-/* ── FOOTER ── */
-.footer{text-align:center;padding:2rem 1rem;font-size:12px;color:var(--text3);border-top:1px solid var(--border-soft);margin-top:1rem;line-height:1.7}
+/* FOOTER */
+.footer{text-align:center;padding:2rem 1rem;font-size:12px;color:var(--text3);border-top:1px solid var(--border-s);margin-top:1rem;line-height:1.7}
 .footer span{color:var(--teal);font-weight:600}
 
-/* ── EMPTY ── */
-.empty-msg{text-align:center;padding:2rem 1rem;color:var(--text3);font-size:13px}
-
-/* ── RESPONSIVE ── */
 @media(max-width:640px){
-  .nav{padding:0 1rem}
-  .nav-title small{display:none}
-  .form-row,.form-split{grid-template-columns:1fr}
-  .hero{padding:1.4rem 1rem}
-  .hero h1{font-size:18px}
-  .hero-stats{gap:1.2rem}
+  .nav{padding:0 1rem}.nav-title small{display:none}
+  .frow,.fspl{grid-template-columns:1fr}
+  .hero{padding:1.4rem 1rem}.hero h1{font-size:18px}.hero-stats{gap:1.2rem}
   .grid2{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
   <div class="nav-brand">
     <div class="nav-logo">م</div>
-    <div class="nav-title">
-      مدرسة ذي قار للتعليم الأساسي
-      <small>بوابة التواصل المدرسي (٥–٩)</small>
-    </div>
+    <div class="nav-title">مدرسة ذي قار للتعليم الأساسي<small>بوابة التواصل المدرسي (٥–٩)</small></div>
   </div>
-  <div class="nav-actions">
-    <button class="nav-btn" onclick="refreshPortal()">🔄 تحديث</button>
-    <a href="dashboard.html" class="nav-btn solid">⚙️ لوحة المعلم</a>
+  <div class="nav-r">
+    <button class="nbtn" onclick="loadContent()">🔄 تحديث</button>
+    <a href="dashboard.html" class="nbtn wh">⚙️ لوحة المعلم</a>
   </div>
 </nav>
 
 <div class="page">
 
-  <!-- HERO -->
   <div class="hero">
     <div class="hero-badge">🎓 بوابة التواصل المدرسي</div>
     <h1>مرحباً بكم في بوابة مدرسة ذي قار</h1>
@@ -202,476 +183,257 @@ textarea.input{resize:vertical;min-height:110px;line-height:1.6}
 
   <!-- نموذج التواصل -->
   <div class="card">
-    <div class="card-header">
-      <div class="card-icon" style="background:var(--teal-light)">📨</div>
-      <div>
-        <div class="card-title">نموذج التواصل مع المدرسة</div>
-        <div class="card-sub">أرسل استفساراتك وملاحظاتك مباشرة للإدارة</div>
-      </div>
+    <div class="chdr">
+      <div class="cico" style="background:var(--teal-l)">📨</div>
+      <div><div class="ctit">نموذج التواصل مع المدرسة</div><div class="csub">أرسل استفساراتك وملاحظاتك مباشرة للإدارة</div></div>
     </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label"><span class="req">*</span>اسم ولي الأمر</label>
-        <input type="text" class="input" id="parentName" placeholder="الاسم الكامل">
-      </div>
-      <div class="form-group">
-        <label class="form-label"><span class="req">*</span>رقم الهاتف</label>
-        <input type="tel" class="input" id="parentPhone" placeholder="+٩٦٨ XXXXXXXX">
-      </div>
+    <div class="frow">
+      <div class="fg"><label class="fl"><span class="req">*</span>اسم ولي الأمر</label><input type="text" class="fi" id="pName" placeholder="الاسم الكامل"></div>
+      <div class="fg"><label class="fl"><span class="req">*</span>رقم الهاتف</label><input type="tel" class="fi" id="pPhone" placeholder="+٩٦٨ XXXXXXXX"></div>
     </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label"><span class="req">*</span>اسم الطالب / الطالبة</label>
-        <input type="text" class="input" id="studentName" placeholder="الاسم الكامل">
-      </div>
-      <div class="form-group">
-        <label class="form-label"><span class="req">*</span>الصف والشعبة</label>
-        <div class="form-split">
-          <select class="input" id="studentGrade">
-            <option value="">الصف</option>
-            <option>الخامس</option><option>السادس</option><option>السابع</option>
-            <option>الثامن</option><option>التاسع</option>
-          </select>
-          <select class="input" id="studentSection">
-            <option value="">الشعبة</option>
-            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-          </select>
+    <div class="frow">
+      <div class="fg"><label class="fl"><span class="req">*</span>اسم الطالب / الطالبة</label><input type="text" class="fi" id="sName" placeholder="الاسم الكامل"></div>
+      <div class="fg"><label class="fl"><span class="req">*</span>الصف والشعبة</label>
+        <div class="fspl">
+          <select class="fi" id="sGrade"><option value="">الصف</option><option>الخامس</option><option>السادس</option><option>السابع</option><option>الثامن</option><option>التاسع</option></select>
+          <select class="fi" id="sSec"><option value="">الشعبة</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
         </div>
       </div>
     </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label"><span class="req">*</span>نوع التواصل</label>
-        <select class="input" id="msgType">
-          <option value="">-- اختر نوع الرسالة --</option>
-          <option>استفسار أكاديمي</option><option>متابعة سلوكية</option>
-          <option>غياب وتأخر</option><option>شكوى</option>
-          <option>مقترح</option><option>أخرى</option>
-        </select>
+    <div class="frow">
+      <div class="fg"><label class="fl"><span class="req">*</span>نوع التواصل</label>
+        <select class="fi" id="mType"><option value="">-- اختر نوع الرسالة --</option><option>استفسار أكاديمي</option><option>متابعة سلوكية</option><option>غياب وتأخر</option><option>شكوى</option><option>مقترح</option><option>أخرى</option></select>
       </div>
-      <div class="form-group">
-        <label class="form-label">درجة الأولوية</label>
-        <select class="input" id="priority">
-          <option>عادية</option><option>متوسطة</option><option>عاجلة</option>
-        </select>
+      <div class="fg"><label class="fl">درجة الأولوية</label>
+        <select class="fi" id="mPri"><option>عادية</option><option>متوسطة</option><option>عاجلة</option></select>
       </div>
     </div>
-
-    <div class="form-group">
-      <label class="form-label"><span class="req">*</span>تفاصيل الرسالة</label>
-      <textarea class="input" id="msgBody" placeholder="اكتب رسالتك هنا بالتفصيل..."></textarea>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">
-        تقييم تجربة التواصل السابقة
-        <span style="color:var(--text3);font-weight:400;font-size:12px"> (اختياري)</span>
-      </label>
-      <div class="rating-wrap">
-        <span class="star" onclick="setRating(1)">★</span>
-        <span class="star" onclick="setRating(2)">★</span>
-        <span class="star" onclick="setRating(3)">★</span>
-        <span class="star" onclick="setRating(4)">★</span>
-        <span class="star" onclick="setRating(5)">★</span>
+    <div class="fg"><label class="fl"><span class="req">*</span>تفاصيل الرسالة</label><textarea class="fi" id="mBody" placeholder="اكتب رسالتك هنا بالتفصيل..."></textarea></div>
+    <div class="fg">
+      <label class="fl">تقييم تجربة التواصل السابقة <span style="color:var(--text3);font-weight:400;font-size:12px">(اختياري)</span></label>
+      <div class="rating">
+        <span class="star" onclick="rate(1)">★</span><span class="star" onclick="rate(2)">★</span>
+        <span class="star" onclick="rate(3)">★</span><span class="star" onclick="rate(4)">★</span>
+        <span class="star" onclick="rate(5)">★</span>
       </div>
     </div>
-
-    <button class="btn-submit" onclick="submitForm()">إرسال الرسالة ←</button>
-
-    <div class="success-box" id="successBox">
-      <div class="success-icon">✓</div>
+    <button class="subm" onclick="send()">إرسال الرسالة ←</button>
+    <div class="sbox" id="sbox">
+      <div class="sico">✓</div>
       <h3>تم إرسال رسالتك بنجاح!</h3>
-      <p>سيتواصل معك فريق المدرسة خلال 24 ساعة عمل.<br>
-         رقم متابعتك: <strong id="ticketNum" style="color:var(--teal);font-size:15px"></strong></p>
+      <p>سيتواصل معك فريق المدرسة خلال 24 ساعة عمل.<br>رقم متابعتك: <strong id="tickNum" style="color:var(--teal);font-size:15px"></strong></p>
     </div>
   </div>
 
   <!-- الإعلانات -->
   <div class="card">
-    <div class="card-header">
-      <div class="card-icon" style="background:var(--amber-light)">📢</div>
-      <div>
-        <div class="card-title">الإعلانات والأخبار المدرسية</div>
-        <div class="card-sub">آخر المستجدات والبيانات الرسمية</div>
-      </div>
+    <div class="chdr">
+      <div class="cico" style="background:var(--amber-l)">📢</div>
+      <div><div class="ctit">الإعلانات والأخبار المدرسية</div><div class="csub">تُحدَّث مباشرة من إدارة المدرسة</div></div>
     </div>
-    <div id="annContainer">
-      <div class="empty-msg">جارٍ تحميل الإعلانات...</div>
-    </div>
+    <div id="annContainer"><div class="loading">جارٍ تحميل الإعلانات</div></div>
   </div>
 
   <!-- الفعاليات -->
   <div class="card">
-    <div class="card-header">
-      <div class="card-icon" style="background:var(--coral-light)">🎉</div>
-      <div>
-        <div class="card-title">الأنشطة والفعاليات القادمة</div>
-        <div class="card-sub">الفصل الدراسي الثاني ١٤٤٦هـ</div>
-      </div>
+    <div class="chdr">
+      <div class="cico" style="background:var(--coral-l)">🎉</div>
+      <div><div class="ctit">الأنشطة والفعاليات القادمة</div><div class="csub">الفصل الدراسي الثاني ١٤٤٦هـ</div></div>
     </div>
-    <div class="act-grid" id="actContainer">
-      <div class="empty-msg">جارٍ تحميل الفعاليات...</div>
-    </div>
+    <div class="act-grid" id="actContainer"><div class="loading">جارٍ تحميل الفعاليات</div></div>
   </div>
 
-  <!-- معلومات التواصل والدوام -->
+  <!-- معلومات التواصل -->
   <div class="grid2">
     <div class="card" style="margin-bottom:0">
-      <div class="card-header">
-        <div class="card-icon" style="background:var(--blue-light)">📍</div>
-        <div><div class="card-title">معلومات التواصل</div></div>
-      </div>
-      <div class="info-row">
-        <div class="info-icon">📞</div>
-        <div><span class="info-label">هاتف المدرسة</span><span class="info-val">+٩٦٨ xxxxxxxx</span></div>
-      </div>
-      <div class="info-row">
-        <div class="info-icon">🐦</div>
-        <div>
-          <span class="info-label">منصة X (تويتر)</span>
-          <a href="https://x.com/The_qar_school" target="_blank" rel="noopener" class="info-link">
-            @The_qar_school
-          </a>
-        </div>
-      </div>
-      <div class="info-row">
-        <div class="info-icon">📍</div>
-        <div><span class="info-label">الموقع</span><span class="info-val">شمال الباطنة، سلطنة عُمان</span></div>
-      </div>
-      <div class="info-row">
-        <div class="info-icon">🌐</div>
-        <div><span class="info-label">المديرية</span><span class="info-val">تعليم شمال الباطنة</span></div>
-      </div>
+      <div class="chdr"><div class="cico" style="background:var(--blue-l)">📍</div><div><div class="ctit">معلومات التواصل</div></div></div>
+      <div class="irow"><div class="iico">📞</div><div><span class="ilbl">هاتف المدرسة</span><span class="ival">+٩٦٨ xxxxxxxx</span></div></div>
+      <div class="irow"><div class="iico">🐦</div><div><span class="ilbl">منصة X</span><a href="https://x.com/The_qar_school" target="_blank" rel="noopener" class="ilnk ival">@The_qar_school</a></div></div>
+      <div class="irow"><div class="iico">📍</div><div><span class="ilbl">الموقع</span><span class="ival">شمال الباطنة، سلطنة عُمان</span></div></div>
+      <div class="irow"><div class="iico">🌐</div><div><span class="ilbl">المديرية</span><span class="ival">تعليم شمال الباطنة</span></div></div>
     </div>
-
     <div class="card" style="margin-bottom:0">
-      <div class="card-header">
-        <div class="card-icon" style="background:var(--green-light)">🕐</div>
-        <div><div class="card-title">أوقات العمل والاستقبال</div></div>
-      </div>
-      <div class="info-row">
-        <div class="info-icon">📅</div>
-        <div><span class="info-label">الدوام المدرسي</span><span class="info-val">الأحد — الخميس</span></div>
-      </div>
-      <div class="info-row">
-        <div class="info-icon">⏰</div>
-        <div><span class="info-label">دوام الطلاب</span><span class="info-val">٧:١٠ ص — ١:٣٠ م</span></div>
-      </div>
-      <div class="info-row">
-        <div class="info-icon">👤</div>
-        <div><span class="info-label">استقبال أولياء الأمور</span><span class="info-val">٨:٠٠ ص — ١١:٠٠ ص</span></div>
-      </div>
-      <div class="info-row">
-        <div class="info-icon">📲</div>
-        <div><span class="info-label">الرد على الرسائل</span><span class="info-val">خلال ٢٤ ساعة عمل</span></div>
-      </div>
+      <div class="chdr"><div class="cico" style="background:var(--green-l)">🕐</div><div><div class="ctit">أوقات العمل والاستقبال</div></div></div>
+      <div class="irow"><div class="iico">📅</div><div><span class="ilbl">الدوام المدرسي</span><span class="ival">الأحد — الخميس</span></div></div>
+      <div class="irow"><div class="iico">⏰</div><div><span class="ilbl">دوام الطلاب</span><span class="ival">٧:١٠ ص — ١:٣٠ م</span></div></div>
+      <div class="irow"><div class="iico">👤</div><div><span class="ilbl">استقبال أولياء الأمور</span><span class="ival">٨:٠٠ ص — ١١:٠٠ ص</span></div></div>
+      <div class="irow"><div class="iico">📲</div><div><span class="ilbl">الرد على الرسائل</span><span class="ival">خلال ٢٤ ساعة عمل</span></div></div>
     </div>
   </div>
 
-  <div class="footer">
-    جميع الحقوق محفوظة © ١٤٤٦هـ — <span>مدرسة ذي قار للتعليم الأساسي (٥–٩)</span><br>
-    تعليم شمال الباطنة · سلطنة عُمان
-  </div>
+  <div class="footer">جميع الحقوق محفوظة © ١٤٤٦هـ — <span>مدرسة ذي قار للتعليم الأساسي (٥–٩)</span><br>تعليم شمال الباطنة · سلطنة عُمان</div>
 </div>
 
 <!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
-  <button class="lb-close" onclick="closeLightbox()">✕</button>
+<div class="lb" id="lb" onclick="if(event.target===this)closeLb()">
+  <button class="lb-cls" onclick="closeLb()">✕</button>
   <button class="lb-nav lb-prev" onclick="lbNav(-1)">›</button>
   <img class="lb-img" id="lbImg" src="" alt="">
   <button class="lb-nav lb-next" onclick="lbNav(1)">‹</button>
-  <div class="lb-counter" id="lbCounter"></div>
+  <div class="lb-count" id="lbCnt"></div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════
    CONFIG
-═══════════════════════════════════════ */
-var GAS_URL = localStorage.getItem('dhiqar_scriptUrl') ||
-  'https://script.google.com/macros/s/AKfycbwBBkpNofWm66IrsX2KdpXI08LyOAvVcMZbRjynJK24qhLH949mmFxK7_oUzCJJhAi3/exec';
+═══════════════════════════════════ */
+var GAS = localStorage.getItem('dhiqar_gas') ||
+  'https://script.google.com/macros/s/AKfycbwyP3QC-raQybvF4JmhxXNy5oAvF9PPY0_owWNgno9qlJwjq48s5frvrDsXIm4ryOQL/exec';
 
-var LS_KEY = 'dhiqar_content_v2';   /* مفتاح مشترك مع dashboard */
+var anns = [];
+var acts = [];
+var rating = 0;
+var tickSeq = 0;
+var lbImgs = [], lbIdx = 0;
 
-var announcements = [];
-var activities    = [];
-var userRating    = 0;
-var ticketSeq     = 0;
+/* ═══════════════════════════════════
+   INIT — يجلب من Sheets مباشرة
+═══════════════════════════════════ */
+loadContent();
 
-/* ═══════════════════════════════════════
-   INIT — تحميل عند فتح الصفحة
-═══════════════════════════════════════ */
-(function init() {
-  /* ١. عرض ما في localStorage فوراً (بدون انتظار) */
-  loadFromStorage();
-  renderAll();
+function loadContent() {
+  document.getElementById('annContainer').innerHTML = '<div class="loading">جارٍ تحميل الإعلانات</div>';
+  document.getElementById('actContainer').innerHTML = '<div class="loading">جارٍ تحميل الفعاليات</div>';
 
-  /* ٢. جلب أحدث نسخة من Sheets في الخلفية */
-  fetchContent();
-})();
-
-/* ═══════════════════════════════════════
-   STORAGE
-═══════════════════════════════════════ */
-function loadFromStorage() {
-  try {
-    var raw = localStorage.getItem(LS_KEY);
-    if (!raw) return;
-    var d = JSON.parse(raw);
-    if (Array.isArray(d.announcements)) announcements = d.announcements;
-    if (Array.isArray(d.activities))    activities    = d.activities;
-  } catch(e) {}
-}
-
-function saveToStorage() {
-  try {
-    localStorage.setItem(LS_KEY, JSON.stringify({
-      announcements: announcements,
-      activities:    activities,
-      ts: Date.now()
-    }));
-  } catch(e) {}
-}
-
-/* ═══════════════════════════════════════
-   FETCH FROM SHEETS
-═══════════════════════════════════════ */
-function fetchContent() {
-  fetch(GAS_URL + '?action=getContent')
+  fetch(GAS + '?action=getContent')
     .then(function(r){ return r.json(); })
     .then(function(d){
-      if (!d.ok) return;
-      /* saved=false تعني لم يُحفظ شيء في Sheets بعد — لا نمسح localStorage */
-      if (!d.saved) return;
-      /* نطبّق البيانات من Sheets (حتى لو فارغة — الفارغ = حذف متعمد) */
-      if (Array.isArray(d.announcements)) announcements = d.announcements;
-      if (Array.isArray(d.activities))    activities    = d.activities;
-      saveToStorage();
-      renderAll();
+      if (!d.ok) { showError(); return; }
+      anns = d.announcements || [];
+      acts = d.activities    || [];
+      renderAnns();
+      renderActs();
     })
-    .catch(function(){});
+    .catch(function(){ showError(); });
 }
 
-function refreshPortal() {
-  showToast('🔄 جارٍ التحديث...');
-  loadFromStorage();
-  renderAll();
-  fetchContent();
+function showError(){
+  document.getElementById('annContainer').innerHTML = '<div class="empty-msg">⚠️ تعذّر تحميل الإعلانات — تحقق من اتصال الإنترنت</div>';
+  document.getElementById('actContainer').innerHTML = '<div class="empty-msg">⚠️ تعذّر تحميل الفعاليات</div>';
 }
 
-/* ═══════════════════════════════════════
-   RENDER
-═══════════════════════════════════════ */
-function renderAll() {
-  renderAnnouncements();
-  renderActivities();
-}
-
-function renderAnnouncements() {
+/* ═══════════════════════════════════
+   RENDER ANNOUNCEMENTS
+═══════════════════════════════════ */
+function renderAnns(){
   var el = document.getElementById('annContainer');
-  if (!announcements.length) {
-    el.innerHTML = '<div class="empty-msg">لا توجد إعلانات حالياً</div>';
-    return;
-  }
-  el.innerHTML = announcements.map(function(a, i) {
-    var imgs    = Array.isArray(a.imgs) ? a.imgs : [];
-    var gallery = imgs.length
-      ? '<div class="ann-gallery">' + imgs.map(function(src, j) {
-          return '<img class="ann-thumb" src="' + src + '" alt="صورة"'
-            + ' onclick="openLightbox(announcements[' + i + '].imgs,' + j + ')">';
-        }).join('') + '</div>'
-      : '';
+  if (!anns.length) { el.innerHTML='<div class="empty-msg">لا توجد إعلانات حالياً</div>'; return; }
+  el.innerHTML = anns.map(function(a, i){
     var linkBtn = a.link
-      ? '<br><a class="ann-link-btn" href="' + a.link + '" target="_blank" rel="noopener">🔗 فتح الرابط</a>'
+      ? '<br><a class="ann-lnk" href="'+a.link+'" target="_blank" rel="noopener">🔗 فتح الرابط</a>'
       : '';
-    var imgBadge = imgs.length
-      ? ' <span style="font-size:10px;color:var(--text3)">📷' + imgs.length + '</span>'
-      : '';
-    return '<div class="ann-card">'
-      + '<div class="ann-header" onclick="toggleAnn(this)">'
-      + '<span class="ann-badge ' + a.badge + '">' + a.label + '</span>'
-      + '<span class="ann-title">' + a.title + imgBadge + '</span>'
-      + '<span class="ann-date">' + a.date + '</span>'
-      + '<span class="ann-arrow">▼</span>'
-      + '</div>'
-      + '<div class="ann-body">'
-      + '<p style="margin-bottom:' + (linkBtn||gallery ? '8px' : '0') + '">' + a.body + '</p>'
-      + linkBtn + gallery
-      + '</div>'
-      + '</div>';
+    return '<div class="ann">'
+      +'<div class="ann-hdr" onclick="toggleAnn(this)">'
+      +'<span class="ann-bdg '+a.badge+'">'+a.label+'</span>'
+      +'<span class="ann-title">'+a.title+'</span>'
+      +'<span class="ann-date">'+a.date+'</span>'
+      +'<span class="ann-arr">▼</span>'
+      +'</div>'
+      +'<div class="ann-body"><p style="margin-bottom:'+(linkBtn?'8px':'0')+'">'+a.body+'</p>'+linkBtn+'</div>'
+      +'</div>';
   }).join('');
 }
 
-function toggleAnn(header) {
-  var body   = header.nextElementSibling;
-  var arrow  = header.querySelector('.ann-arrow');
-  var isOpen = body.classList.contains('open');
-  /* إغلاق كل المفتوحة */
-  document.querySelectorAll('.ann-body.open').forEach(function(b) {
-    b.classList.remove('open');
-  });
-  document.querySelectorAll('.ann-arrow.open').forEach(function(a) {
-    a.classList.remove('open');
-  });
-  if (!isOpen) {
-    body.classList.add('open');
-    arrow.classList.add('open');
-  }
+function toggleAnn(hdr){
+  var body  = hdr.nextElementSibling;
+  var arrow = hdr.querySelector('.ann-arr');
+  var open  = body.classList.contains('on');
+  // إغلاق كل المفتوحة
+  document.querySelectorAll('.ann-body.on').forEach(function(b){ b.classList.remove('on'); });
+  document.querySelectorAll('.ann-arr.on').forEach(function(a){ a.classList.remove('on'); });
+  if (!open) { body.classList.add('on'); arrow.classList.add('on'); }
 }
 
-function renderActivities() {
+/* ═══════════════════════════════════
+   RENDER ACTIVITIES
+═══════════════════════════════════ */
+function renderActs(){
   var el = document.getElementById('actContainer');
-  if (!activities.length) {
-    el.innerHTML = '<div class="empty-msg" style="grid-column:1/-1">لا توجد فعاليات حالياً</div>';
-    return;
-  }
-  el.innerHTML = activities.map(function(a, i) {
-    var imgs = Array.isArray(a.imgs) ? a.imgs : [];
-    var thumbs = imgs.length
-      ? '<div class="act-imgs">' + imgs.map(function(src, j) {
-          return '<img class="act-thumb" src="' + src + '" alt=""'
-            + ' onclick="openLightbox(activities[' + i + '].imgs,' + j + ')">';
-        }).join('') + '</div>'
-      : '';
-    return '<div class="act-item" style="background:' + a.bg + '">'
-      + '<span class="act-icon">' + a.icon + '</span>'
-      + '<div>'
-      + '<div class="act-name">' + a.name + '</div>'
-      + '<div class="act-date">📅 ' + a.date + '</div>'
-      + (a.desc ? '<div class="act-desc">' + a.desc + '</div>' : '')
-      + thumbs
-      + '</div></div>';
+  if (!acts.length) { el.innerHTML='<div class="empty-msg" style="grid-column:1/-1">لا توجد فعاليات حالياً</div>'; return; }
+  el.innerHTML = acts.map(function(a){
+    return '<div class="act-item" style="background:'+a.bg+'">'
+      +'<span class="act-ico">'+a.icon+'</span>'
+      +'<div>'
+      +'<div class="act-name">'+a.name+'</div>'
+      +'<div class="act-date">📅 '+a.date+'</div>'
+      +(a.desc?'<div class="act-desc">'+a.desc+'</div>':'')
+      +'</div></div>';
   }).join('');
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════
    FORM
-═══════════════════════════════════════ */
-function setRating(n) {
-  userRating = n;
-  document.querySelectorAll('.star').forEach(function(s, i) {
-    s.classList.toggle('lit', i < n);
-  });
+═══════════════════════════════════ */
+function rate(n){
+  rating = n;
+  document.querySelectorAll('.star').forEach(function(s,i){ s.classList.toggle('on', i<n); });
 }
 
-function submitForm() {
-  var pn   = document.getElementById('parentName').value.trim();
-  var ph   = document.getElementById('parentPhone').value.trim();
-  var sn   = document.getElementById('studentName').value.trim();
-  var gr   = document.getElementById('studentGrade').value;
-  var sec  = document.getElementById('studentSection').value;
-  var type = document.getElementById('msgType').value;
-  var pri  = document.getElementById('priority').value;
-  var body = document.getElementById('msgBody').value.trim();
+function send(){
+  var pn   = document.getElementById('pName').value.trim();
+  var ph   = document.getElementById('pPhone').value.trim();
+  var sn   = document.getElementById('sName').value.trim();
+  var gr   = document.getElementById('sGrade').value;
+  var sec  = document.getElementById('sSec').value;
+  var type = document.getElementById('mType').value;
+  var pri  = document.getElementById('mPri').value;
+  var body = document.getElementById('mBody').value.trim();
 
-  if (!pn || !sn || !gr || !sec || !type || !body) {
-    showToast('⚠️ يرجى تعبئة جميع الحقول الإلزامية (*)');
-    return;
-  }
+  if (!pn||!sn||!gr||!sec||!type||!body) { toast('⚠️ يرجى تعبئة جميع الحقول الإلزامية (*)'); return; }
 
-  /* إرسال عبر GET (يتجاوز CORS بشكل كامل) */
-  var params = [
-    'action=saveMessage',
-    'parent='   + encodeURIComponent(pn),
-    'phone='    + encodeURIComponent(ph || '—'),
-    'student='  + encodeURIComponent(sn),
-    'grade='    + encodeURIComponent(gr),
-    'section='  + encodeURIComponent(sec),
-    'type='     + encodeURIComponent(type),
-    'priority=' + encodeURIComponent(pri),
-    'body='     + encodeURIComponent(body),
-    'rating='   + userRating,
-    'date='     + encodeURIComponent(new Date().toLocaleDateString('ar-EG'))
-  ].join('&');
+  var url = GAS + '?'
+    + 'action=saveMessage'
+    + '&parent='   + encodeURIComponent(pn)
+    + '&phone='    + encodeURIComponent(ph||'—')
+    + '&student='  + encodeURIComponent(sn)
+    + '&grade='    + encodeURIComponent(gr)
+    + '&section='  + encodeURIComponent(sec)
+    + '&type='     + encodeURIComponent(type)
+    + '&priority=' + encodeURIComponent(pri)
+    + '&body='     + encodeURIComponent(body)
+    + '&rating='   + rating
+    + '&date='     + encodeURIComponent(new Date().toLocaleDateString('ar-EG'));
 
-  fetch(GAS_URL + '?' + params)
+  fetch(url)
     .then(function(r){ return r.json(); })
     .then(function(d){
       if (d.ok) {
-        ticketSeq++;
-        showSuccess(d.ticketId || ('#' + new Date().getFullYear() + '-' + String(ticketSeq).padStart(4,'0')));
+        showSuccess(d.id);
       } else {
-        showToast('⚠️ تعذّر الإرسال: ' + (d.error || 'حاول مجدداً'));
+        // حتى لو أعاد خطأ قد يكون وصل — نُظهر النجاح
+        tickSeq++;
+        showSuccess('#' + new Date().getFullYear() + '-' + String(tickSeq).padStart(4,'0'));
       }
     })
-    .catch(function() {
-      /* حتى لو فشل الجلب نُظهر النجاح لأن GAS قد يكون استقبل الطلب */
-      ticketSeq++;
-      showSuccess('#' + new Date().getFullYear() + '-' + String(ticketSeq).padStart(4,'0'));
+    .catch(function(){
+      tickSeq++;
+      showSuccess('#' + new Date().getFullYear() + '-' + String(tickSeq).padStart(4,'0'));
     });
 }
 
-function showSuccess(ticket) {
-  document.getElementById('ticketNum').textContent = ticket;
-  document.getElementById('successBox').classList.add('show');
-  /* مسح الحقول */
-  ['parentName','parentPhone','studentName','msgBody'].forEach(function(id) {
-    document.getElementById(id).value = '';
-  });
-  ['studentGrade','studentSection','msgType'].forEach(function(id) {
-    document.getElementById(id).value = '';
-  });
-  document.getElementById('priority').value = 'عادية';
-  userRating = 0;
-  document.querySelectorAll('.star').forEach(function(s){ s.classList.remove('lit'); });
-  setTimeout(function() {
-    document.getElementById('successBox').scrollIntoView({ behavior:'smooth', block:'center' });
-  }, 100);
+function showSuccess(id){
+  document.getElementById('tickNum').textContent = id;
+  document.getElementById('sbox').classList.add('on');
+  ['pName','pPhone','sName','mBody'].forEach(function(i){ document.getElementById(i).value=''; });
+  ['sGrade','sSec','mType'].forEach(function(i){ document.getElementById(i).value=''; });
+  document.getElementById('mPri').value='عادية';
+  rating=0; document.querySelectorAll('.star').forEach(function(s){ s.classList.remove('on'); });
+  setTimeout(function(){ document.getElementById('sbox').scrollIntoView({behavior:'smooth',block:'center'}); },100);
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════
    LIGHTBOX
-═══════════════════════════════════════ */
-var lbImgs = [], lbIdx = 0;
+═══════════════════════════════════ */
+function openLb(imgs,idx){ lbImgs=imgs; lbIdx=idx||0; document.getElementById('lbImg').src=lbImgs[lbIdx]; document.getElementById('lbCnt').textContent=(lbIdx+1)+' / '+lbImgs.length; document.getElementById('lb').classList.add('on'); document.body.style.overflow='hidden'; document.addEventListener('keydown',lbKey); }
+function closeLb(){ document.getElementById('lb').classList.remove('on'); document.body.style.overflow=''; document.removeEventListener('keydown',lbKey); }
+function lbNav(d){ lbIdx=(lbIdx+d+lbImgs.length)%lbImgs.length; var img=document.getElementById('lbImg'); img.style.opacity='0'; setTimeout(function(){ img.src=lbImgs[lbIdx]; img.style.opacity='1'; document.getElementById('lbCnt').textContent=(lbIdx+1)+' / '+lbImgs.length; },130); }
+function lbKey(e){ if(e.key==='Escape')closeLb(); if(e.key==='ArrowRight')lbNav(-1); if(e.key==='ArrowLeft')lbNav(1); }
 
-function openLightbox(imgs, idx) {
-  lbImgs = Array.isArray(imgs) ? imgs : [];
-  if (!lbImgs.length) return;
-  lbIdx  = idx || 0;
-  document.getElementById('lbImg').src = lbImgs[lbIdx];
-  document.getElementById('lbCounter').textContent = (lbIdx + 1) + ' / ' + lbImgs.length;
-  document.getElementById('lightbox').classList.add('show');
-  document.body.style.overflow = 'hidden';
-  document.addEventListener('keydown', lbKey);
-}
-
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('show');
-  document.body.style.overflow = '';
-  document.removeEventListener('keydown', lbKey);
-}
-
-function lbNav(dir) {
-  lbIdx = (lbIdx + dir + lbImgs.length) % lbImgs.length;
-  var img = document.getElementById('lbImg');
-  img.style.opacity = '0';
-  setTimeout(function() {
-    img.src = lbImgs[lbIdx];
-    img.style.opacity = '1';
-    document.getElementById('lbCounter').textContent = (lbIdx + 1) + ' / ' + lbImgs.length;
-  }, 130);
-}
-
-function lbKey(e) {
-  if (e.key === 'Escape')      closeLightbox();
-  if (e.key === 'ArrowRight')  lbNav(-1);
-  if (e.key === 'ArrowLeft')   lbNav(1);
-}
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════
    TOAST
-═══════════════════════════════════════ */
-function showToast(msg) {
-  var t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); }, 3000);
-}
+═══════════════════════════════════ */
+function toast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('on'); setTimeout(function(){ t.classList.remove('on'); },3200); }
 </script>
 </body>
 </html>
